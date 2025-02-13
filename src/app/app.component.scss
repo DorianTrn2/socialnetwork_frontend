@@ -1,0 +1,7 @@
+@use 'src/custom-theme.scss' as theme;
+
+.main-content-container {
+  height: calc(100vh - theme.$navbar-height);
+  width: 90%;
+  margin: 0 5%;
+}

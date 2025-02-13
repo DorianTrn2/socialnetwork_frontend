@@ -11,3 +11,7 @@ export const APP_URL = {
 export const EVENTS_URL = {
   NEW: "new",
 };
+
+export const LOGIN_FRAGMENT = {
+  REGISTER: "register",
+}
