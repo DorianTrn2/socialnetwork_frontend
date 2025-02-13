@@ -38,6 +38,8 @@ export class HomeComponent implements OnInit {
 
   private themeFormControl!: FormControl<EventTheme | null>;
 
+  private dateFormControl!: FormControl<Date | null>;
+
   private sortByDateFormControl!: FormControl<boolean>;
 
   private sortByDateOrderFormControl!: FormControl<boolean>;
@@ -56,6 +58,7 @@ export class HomeComponent implements OnInit {
     this.themeFormControl = new FormControl(null);
     this.minimumPriceFormControl = new FormControl(MIN_PRICE, {nonNullable: true});
     this.maximumPriceFormControl = new FormControl(MAX_PRICE, {nonNullable: true});
+    this.dateFormControl = new FormControl(null);
 
     this.sortByDateFormControl = new FormControl(false, {nonNullable: true});
     this.sortByPriceFormControl = new FormControl(false, {nonNullable: true});
@@ -69,6 +72,7 @@ export class HomeComponent implements OnInit {
       minimumPrice: this.minimumPriceFormControl,
       maximumPrice: this.maximumPriceFormControl,
       theme: this.themeFormControl,
+      date: this.dateFormControl,
       sortByDate: this.sortByDateFormControl,
       sortByPrice: this.sortByPriceFormControl,
       sortByDateOrder: this.sortByDateOrderFormControl,
@@ -82,6 +86,7 @@ export class HomeComponent implements OnInit {
       this.maximumPriceFormControl.value,
       this.eventNameFormControl.value,
       this.themeFormControl.value,
+      this.dateFormControl.value,
       this.sortByDateFormControl.value,
       this.sortByPriceFormControl.value,
       this.sortByDateFormControl.value ? this.sortByDateOrderFormControl.value : this.sortByPriceOrderFormControl.value,
