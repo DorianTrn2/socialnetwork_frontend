@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EventsComponent } from './component/events/events.component';
+import { EventCardComponent } from './component/event-card/event-card.component';
 
 
 
 @NgModule({
   declarations: [
-    EventsComponent
+    EventCardComponent
   ],
   imports: [
     CommonModule
   ]
 })
-export class EventsModule { }
+export class EventCardModule { }

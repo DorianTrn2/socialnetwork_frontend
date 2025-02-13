@@ -2,9 +2,9 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HomeModule} from "./home/home.module";
 import {ChatsModule} from "./chats/chats.module";
-import {EventsModule} from "./events/events.module";
 import {ProfileModule} from "./profile/profile.module";
 import {LoginModule} from "./login/login.module";
+import {EventModule} from "./event/event.module";
 
 
 @NgModule({
@@ -15,9 +15,9 @@ import {LoginModule} from "./login/login.module";
     // Feature modules
     HomeModule,
     ChatsModule,
-    EventsModule,
     ProfileModule,
-    LoginModule
+    LoginModule,
+    EventModule,
   ]
 })
 export class FeatureModule {

@@ -1,1 +1,21 @@
-<p>This is the home component</p>
+<div class="home-container">
+  <div class="welcome-container">
+    <span *ngIf="connectedUser$() as connectedUser">{{ connectedUser.username }}</span>
+    <div *ngIf="!connectedUser$()" class="login-container">
+      <h1>Connectez-vous pour avoir accès à l'ensemble de l'application</h1>
+      <div class="login-buttons-container">
+        <button color="primary" mat-flat-button>Se connecter</button>
+        <button color="primary" mat-flat-button>S'inscrire</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="event-list-main-container">
+    <div class="event-list-container">
+
+    </div>
+    <div class="event-list-filter-container">
+
+    </div>
+  </div>
+</div>

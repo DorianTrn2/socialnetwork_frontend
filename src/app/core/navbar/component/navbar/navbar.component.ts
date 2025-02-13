@@ -1,7 +1,8 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, Signal} from '@angular/core';
 import {Router} from "@angular/router";
 import {APP_URL} from "../../../constant/url.constant";
 import {AuthenticationStore} from "../../../store/authentication/authentication.store";
+import {User} from "../../../type/user";
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +10,7 @@ import {AuthenticationStore} from "../../../store/authentication/authentication.
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  public isLoggedIn: boolean = inject(AuthenticationStore).isLoggedIn;
+  protected readonly connectedUser$: Signal<User | null> = inject(AuthenticationStore).connectedUser$;
 
   protected readonly APP_URL = APP_URL;
 
