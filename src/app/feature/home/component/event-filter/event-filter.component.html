@@ -1,18 +1,26 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="filterFormGroup">
-  <mat-form-field>
+<form (ngSubmit)="onSubmit()" [formGroup]="filterFormGroup" class="filter-form">
+  <h3>Nom de l'évènement</h3>
+  <mat-form-field class="width-full" subscriptSizing="dynamic">
     <mat-label>Nom de l'évènement</mat-label>
     <input formControlName="name" matInput type="text">
   </mat-form-field>
-  <mat-slider [max]="MAX_PRICE" [min]="MIN_PRICE">
-    <input formControlName="minimumPrice" matSliderStartThumb value="0">
-    <input formControlName="maximumPrice" matSliderEndThumb value="500">
-  </mat-slider>
-  <mat-form-field>
-    <mat-label>Nom de l'évènement</mat-label>
+
+  <h3>Thème de l'évènement</h3>
+  <mat-form-field class="width-full" subscriptSizing="dynamic">
+    <mat-label>Thème de l'évènement</mat-label>
     <mat-select formControlName="theme">
       <mat-option *ngFor="let theme of eventThemes" [value]="theme">{{ EVENT_THEME[theme] }}</mat-option>
     </mat-select>
   </mat-form-field>
+
+  <h3>Amplitude des prix</h3>
+  <mat-slider [max]="MAX_PRICE" [min]="MIN_PRICE" class="width-full">
+    <input formControlName="minimumPrice" matSliderStartThumb value="0">
+    <input formControlName="maximumPrice" matSliderEndThumb value="500">
+  </mat-slider>
+  <span class="prices-range-display">Prix compris entre {{ filterFormGroup.controls['minimumPrice'].value }}
+    et {{ filterFormGroup.controls['maximumPrice'].value }}€</span>
+
   <br>
   <button [disabled]="filterFormGroup.pristine" color="primary" mat-flat-button type="submit">Filtrer les résultats
   </button>

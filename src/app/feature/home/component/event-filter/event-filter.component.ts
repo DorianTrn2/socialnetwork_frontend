@@ -16,7 +16,7 @@ export class EventFilterComponent {
   protected readonly EVENT_THEME = EVENT_THEME;
 
   protected readonly MAX_PRICE = MAX_PRICE;
-  
+
   protected readonly MIN_PRICE = MIN_PRICE;
 
   public onSubmit(): void {
