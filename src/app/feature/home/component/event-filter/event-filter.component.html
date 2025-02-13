@@ -22,6 +22,28 @@
   <span class="prices-range-display">Prix compris entre {{ filterFormGroup.controls['minimumPrice'].value }}
     et {{ filterFormGroup.controls['maximumPrice'].value }}€</span>
 
+
+  <div class="sort-type-container">
+    <mat-slide-toggle [disabled]="filterFormGroup.controls['sortByPrice'].value" formControlName="sortByDate">
+      Trier par date
+    </mat-slide-toggle>
+
+    <mat-radio-group [disabled]="!filterFormGroup.controls['sortByDate'].value" formControlName="sortByDateOrder">
+      <mat-radio-button [value]="true">Croissant</mat-radio-button>
+      <mat-radio-button [value]="false">Décroissant</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div class="sort-type-container">
+    <mat-slide-toggle [disabled]="filterFormGroup.controls['sortByDate'].value" formControlName="sortByPrice">
+      Trier par prix
+    </mat-slide-toggle>
+
+    <mat-radio-group [disabled]="!filterFormGroup.controls['sortByPrice'].value" formControlName="sortByPriceOrder">
+      <mat-radio-button [value]="true">Croissant</mat-radio-button>
+      <mat-radio-button [value]="false">Décroissant</mat-radio-button>
+    </mat-radio-group>
+  </div>
   <br>
   <button [disabled]="filterFormGroup.pristine" color="primary" mat-flat-button type="submit">Filtrer les résultats
   </button>

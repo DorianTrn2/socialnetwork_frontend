@@ -27,7 +27,7 @@ export class EventService {
     );
   }
 
-  public getFilteredEvents(minPrice: number, maxPrice: number, name: string | null, themeCode: EventTheme | null): Observable<Event[]> {
+  public getFilteredEvents(minPrice: number, maxPrice: number, name: string | null, themeCode: EventTheme | null, orderByDate: boolean, orderByPrice: boolean, ascendingOrder: boolean): Observable<Event[]> {
     let url: string = this.URL;
     url += `?price_min=${minPrice}&price_max=${maxPrice}`;
 
@@ -37,6 +37,12 @@ export class EventService {
 
     if (themeCode) {
       url += `&theme_code=${themeCode}`;
+    }
+
+    if (orderByDate) {
+      url += `&sort_by_date=${ascendingOrder ? 1 : -1}`
+    } else if (orderByPrice) {
+      url += `&sort_by_price=${ascendingOrder ? 1 : -1}`
     }
     return this.http.get<Event[]>(url);
   }

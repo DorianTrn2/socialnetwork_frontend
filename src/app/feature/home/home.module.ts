@@ -11,6 +11,9 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatSliderModule} from "@angular/material/slider";
 import {MatSelectModule} from "@angular/material/select";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatRadioModule} from "@angular/material/radio";
 
 
 @NgModule({
@@ -28,6 +31,9 @@ import {MatSelectModule} from "@angular/material/select";
     MatInputModule,
     MatSliderModule,
     MatSelectModule,
+    MatButtonToggleModule,
+    MatSlideToggleModule,
+    MatRadioModule,
   ],
   providers: [
     EventService,

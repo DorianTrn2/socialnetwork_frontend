@@ -38,6 +38,14 @@ export class HomeComponent implements OnInit {
 
   private themeFormControl!: FormControl<EventTheme | null>;
 
+  private sortByDateFormControl!: FormControl<boolean>;
+
+  private sortByDateOrderFormControl!: FormControl<boolean>;
+
+  private sortByPriceFormControl!: FormControl<boolean>;
+
+  private sortByPriceOrderFormControl!: FormControl<boolean>;
+
   private readonly eventService: EventService = inject(EventService);
 
   public ngOnInit(): void {
@@ -49,11 +57,22 @@ export class HomeComponent implements OnInit {
     this.minimumPriceFormControl = new FormControl(MIN_PRICE, {nonNullable: true});
     this.maximumPriceFormControl = new FormControl(MAX_PRICE, {nonNullable: true});
 
+    this.sortByDateFormControl = new FormControl(false, {nonNullable: true});
+    this.sortByPriceFormControl = new FormControl(false, {nonNullable: true});
+    this.sortByDateOrderFormControl = new FormControl(true, {nonNullable: true});
+    this.sortByDateOrderFormControl.disable();
+    this.sortByPriceOrderFormControl = new FormControl(true, {nonNullable: true});
+    this.sortByPriceOrderFormControl.disable();
+
     this.filterFormGroup = new FormGroup({
       name: this.eventNameFormControl,
       minimumPrice: this.minimumPriceFormControl,
       maximumPrice: this.maximumPriceFormControl,
       theme: this.themeFormControl,
+      sortByDate: this.sortByDateFormControl,
+      sortByPrice: this.sortByPriceFormControl,
+      sortByDateOrder: this.sortByDateOrderFormControl,
+      sortByPriceOrder: this.sortByPriceOrderFormControl,
     });
   }
 
@@ -62,7 +81,10 @@ export class HomeComponent implements OnInit {
       this.minimumPriceFormControl.value,
       this.maximumPriceFormControl.value,
       this.eventNameFormControl.value,
-      this.themeFormControl.value
+      this.themeFormControl.value,
+      this.sortByDateFormControl.value,
+      this.sortByPriceFormControl.value,
+      this.sortByDateFormControl.value ? this.sortByDateOrderFormControl.value : this.sortByPriceOrderFormControl.value,
     ).subscribe((events: Event[]) => {
       this.events = events;
     });
