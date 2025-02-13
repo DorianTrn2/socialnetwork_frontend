@@ -1,0 +1,32 @@
+.event-card-content {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.event-image-container {
+  width: 50%;
+  height: 20vh;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    object-fit: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.event-info-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.horizontal-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}

@@ -1,5 +1,16 @@
 @import "custom-theme.scss";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
 
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  background-color: rgba(101, 236, 220, 0.1);
+}
+
+.width-full {
+  width: 100%;
+}

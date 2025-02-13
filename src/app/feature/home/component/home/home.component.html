@@ -1,21 +1,35 @@
 <div class="home-container">
   <div class="welcome-container">
-    <span *ngIf="connectedUser$() as connectedUser">{{ connectedUser.username }}</span>
+    <h1 *ngIf="connectedUser$() as connectedUser">Bienvenue {{ connectedUser.username }} !</h1>
     <div *ngIf="!connectedUser$()" class="login-container">
       <h1>Connectez-vous pour avoir accès à l'ensemble de l'application</h1>
       <div class="login-buttons-container">
-        <button color="primary" mat-flat-button>Se connecter</button>
-        <button color="primary" mat-flat-button>S'inscrire</button>
+        <button (click)="navigationService.navigateTo(APP_URL.LOGIN)" color="primary" mat-flat-button>Se connecter
+        </button>
+        <button (click)="navigationService.navigateTo(APP_URL.LOGIN, LOGIN_FRAGMENT.REGISTER)" color="primary"
+                mat-flat-button>S'inscrire
+        </button>
       </div>
     </div>
-
   </div>
+
   <div class="event-list-main-container">
-    <div class="event-list-container">
+    <mat-card class="event-list-container">
+      <mat-card-header>
+        <h2>Évènements</h2>
+      </mat-card-header>
+      <mat-card-content class="event-list">
+        <app-event-card *ngFor="let event of events" [event]="event"/>
+      </mat-card-content>
+    </mat-card>
 
-    </div>
-    <div class="event-list-filter-container">
-
-    </div>
+    <mat-card class="event-list-filter-container">
+      <mat-card-header>
+        <h2>Filtres</h2>
+      </mat-card-header>
+      <mat-card-content>
+        <app-event-filter (onFiltersSubmit)="onFiltersSubmit()" [filterFormGroup]="filterFormGroup"/>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>

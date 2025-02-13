@@ -8,6 +8,9 @@ import {EventCardModule} from "./event-card/event-card.module";
   imports: [
     CommonModule,
     EventCardModule,
+  ],
+  exports: [
+    EventCardModule,
   ]
 })
 export class SharedModule {

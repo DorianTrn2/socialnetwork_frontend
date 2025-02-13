@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   // TODO to remove when login works
   public ngOnInit() {
     this.authenticationStore.login({
-      username: "Super User de fou furax",
+      username: "Super UserType de fou furax",
       birthdate: new Date(Date.now()),
       firstname: "Denis",
       isAdmin: false,
