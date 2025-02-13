@@ -1,0 +1,16 @@
+<div class="navbar-container">
+  <div class="app-name">
+    <img (click)="navigateTo(APP_URL.HOME)" alt="App logo" src="assets/images/logo.png">
+  </div>
+  <div class="nav-links-container">
+    <button (click)="navigateTo(APP_URL.HOME)" color="primary" mat-flat-button>Accueil</button>
+    <button (click)="navigateTo(APP_URL.EVENTS)" color="primary" mat-flat-button>Évènement</button>
+    <button (click)="navigateTo(APP_URL.PROFILE)" *ngIf="isLoggedIn" color="primary" mat-flat-button>Mon compte</button>
+    <button (click)="navigateTo(APP_URL.CHATS)" *ngIf="isLoggedIn" color="primary" mat-flat-button>Mes conversations
+    </button>
+    <button (click)="navigateTo(APP_URL.LOGIN)" color="primary" mat-stroked-button>
+      <span *ngIf="isLoggedIn">Se déconnecter</span>
+      <span *ngIf="!isLoggedIn">Se connecter</span>
+    </button>
+  </div>
+</div>
