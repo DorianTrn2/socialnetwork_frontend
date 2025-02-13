@@ -1,0 +1,14 @@
+$image-size: calc(20vh);
+.user-image-container {
+  width: $image-size;
+  height: $image-size;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    object-fit: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+}

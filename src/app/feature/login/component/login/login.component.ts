@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {AuthenticationStore} from "../../../../core/store/authentication/authentication.store";
+import {AuthenticationStore} from "@core/store/authentication/authentication.store";
 
 @Component({
   selector: 'app-login',
@@ -12,12 +12,13 @@ export class LoginComponent implements OnInit {
   // TODO to remove when login works
   public ngOnInit() {
     this.authenticationStore.login({
-      username: "Super UserType de fou furax",
+      username: "Xx_KevinDu48_xX",
       birthdate: new Date(Date.now()),
       firstname: "Denis",
       isAdmin: false,
       mail: "mail@mail.mail",
       lastname: "De Nice",
+      role_id: 4856,
     })
   }
 }

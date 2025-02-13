@@ -1,14 +1,14 @@
 import {Injectable, signal, Signal, WritableSignal} from '@angular/core';
-import {UserType} from "@core/type/user.type";
+import {User} from "@core/type/user.type";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthenticationStore {
-    private connectedUser$$: WritableSignal<UserType | null> = signal(null);
-    public readonly connectedUser$: Signal<UserType | null> = this.connectedUser$$.asReadonly();
+    private connectedUser$$: WritableSignal<User | null> = signal(null);
+    public readonly connectedUser$: Signal<User | null> = this.connectedUser$$.asReadonly();
 
-    public login(user: UserType): void {
+    public login(user: User): void {
         this.connectedUser$$.set(user);
     }
 

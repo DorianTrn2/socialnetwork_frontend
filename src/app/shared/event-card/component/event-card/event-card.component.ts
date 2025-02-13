@@ -12,7 +12,7 @@ export class EventCardComponent implements OnInit {
     @Input({required: true}) event!: Event;
 
     public eventImageUrl$$: WritableSignal<string> = signal("");
-    
+
     protected readonly EVENT_THEME = EVENT_THEME;
 
     public ngOnInit(): void {
