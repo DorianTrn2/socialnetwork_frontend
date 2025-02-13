@@ -1,0 +1,19 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="filterFormGroup">
+  <mat-form-field>
+    <mat-label>Nom de l'évènement</mat-label>
+    <input formControlName="name" matInput type="text">
+  </mat-form-field>
+  <mat-slider [max]="MAX_PRICE" [min]="MIN_PRICE">
+    <input formControlName="minimumPrice" matSliderStartThumb value="0">
+    <input formControlName="maximumPrice" matSliderEndThumb value="500">
+  </mat-slider>
+  <mat-form-field>
+    <mat-label>Nom de l'évènement</mat-label>
+    <mat-select formControlName="theme">
+      <mat-option *ngFor="let theme of eventThemes" [value]="theme">{{ EVENT_THEME[theme] }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <button [disabled]="filterFormGroup.pristine" color="primary" mat-flat-button type="submit">Filtrer les résultats
+  </button>
+</form>

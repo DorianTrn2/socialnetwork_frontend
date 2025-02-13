@@ -5,6 +5,9 @@ import {NavigationService} from "@core/service/navigation/navigation.service";
 import {APP_URL, LOGIN_FRAGMENT} from "@core/constant/url.constant";
 import {Event} from "@core/type/event.type";
 import {ActivatedRoute} from "@angular/router";
+import {FormControl, FormGroup} from "@angular/forms";
+import {EventTheme} from "@core/constant/theme.constant";
+import {MAX_PRICE, MIN_PRICE} from "@feature/home/constant/filter.constant";
 
 @Component({
   selector: 'app-home',
@@ -13,6 +16,8 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class HomeComponent implements OnInit {
   public events!: Event[];
+
+  public filterFormGroup!: FormGroup;
 
   protected readonly connectedUser$: Signal<UserType | null> = inject(AuthenticationStore).connectedUser$;
 
@@ -24,8 +29,28 @@ export class HomeComponent implements OnInit {
 
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
 
+  private eventNameFormControl!: FormControl<string | null>;
+
+  private minimumPriceFormControl!: FormControl<number>;
+
+  private maximumPriceFormControl!: FormControl<number>;
+
+  private themeFormControl!: FormControl<EventTheme | null>;
+
   public ngOnInit(): void {
     // Resolver
     this.events = this.route.snapshot.data["events"];
+
+    this.eventNameFormControl = new FormControl(null);
+    this.themeFormControl = new FormControl(null);
+    this.minimumPriceFormControl = new FormControl(MIN_PRICE, {nonNullable: true});
+    this.maximumPriceFormControl = new FormControl(MAX_PRICE, {nonNullable: true});
+
+    this.filterFormGroup = new FormGroup({
+      name: this.eventNameFormControl,
+      minimumPrice: this.minimumPriceFormControl,
+      maximumPrice: this.maximumPriceFormControl,
+      theme: this.themeFormControl,
+    });
   }
 }
