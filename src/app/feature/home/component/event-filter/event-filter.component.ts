@@ -20,6 +20,6 @@ export class EventFilterComponent {
   protected readonly MIN_PRICE = MIN_PRICE;
 
   public onSubmit(): void {
-    console.log("submitted");
+    this.filterFormGroup.markAsPristine();
   }
 }

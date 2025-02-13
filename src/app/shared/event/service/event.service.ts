@@ -4,6 +4,7 @@ import {Observable, of, tap} from "rxjs";
 import {BACKEND_ENDPOINT, BACKEND_URI} from "@core/constant/url.constant";
 import {EventStore} from "@shared/event/store/event.store";
 import {Event} from "@core/type/event.type";
+import {EventTheme} from "@core/constant/theme.constant";
 
 @Injectable()
 export class EventService {
@@ -24,5 +25,9 @@ export class EventService {
         this.eventStore.setEvents(events);
       })
     );
+  }
+
+  public getFilteredEvents(minPrice: number | null, maxPrice: number | null, name: string, themeCode: keyof EventTheme): Observable<Event[]> {
+    return this.http.get<Event[]>(this.URL);
   }
 }

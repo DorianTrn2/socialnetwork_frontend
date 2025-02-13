@@ -9,6 +9,7 @@
   <mat-form-field class="width-full" subscriptSizing="dynamic">
     <mat-label>Thème de l'évènement</mat-label>
     <mat-select formControlName="theme">
+      <mat-option [value]="null">--</mat-option>
       <mat-option *ngFor="let theme of eventThemes" [value]="theme">{{ EVENT_THEME[theme] }}</mat-option>
     </mat-select>
   </mat-form-field>
