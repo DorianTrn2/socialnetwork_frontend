@@ -35,9 +35,17 @@
 }
 
 .event-list-container {
-  width: 80%;
+  width: 65%;
 }
 
 .event-list-filter-container {
-  width: 15%;
+  width: 32%;
+}
+
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow-y: auto;
+  margin-bottom: 20px;
 }
