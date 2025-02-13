@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormGroup} from "@angular/forms";
 import {EVENT_THEME, EventTheme} from "@core/constant/theme.constant";
 import {MAX_PRICE, MIN_PRICE} from "@feature/home/constant/filter.constant";
@@ -11,6 +11,8 @@ import {MAX_PRICE, MIN_PRICE} from "@feature/home/constant/filter.constant";
 export class EventFilterComponent {
   @Input({required: true}) filterFormGroup!: FormGroup;
 
+  @Output() onFiltersSubmit: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   public eventThemes: EventTheme[] = Object.keys(EVENT_THEME) as EventTheme[];
 
   protected readonly EVENT_THEME = EVENT_THEME;
@@ -21,5 +23,6 @@ export class EventFilterComponent {
 
   public onSubmit(): void {
     this.filterFormGroup.markAsPristine();
+    this.onFiltersSubmit.emit(true);
   }
 }

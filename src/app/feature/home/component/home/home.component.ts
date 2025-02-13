@@ -8,6 +8,7 @@ import {ActivatedRoute} from "@angular/router";
 import {FormControl, FormGroup} from "@angular/forms";
 import {EventTheme} from "@core/constant/theme.constant";
 import {MAX_PRICE, MIN_PRICE} from "@feature/home/constant/filter.constant";
+import {EventService} from "@shared/event/service/event.service";
 
 @Component({
   selector: 'app-home',
@@ -37,6 +38,8 @@ export class HomeComponent implements OnInit {
 
   private themeFormControl!: FormControl<EventTheme | null>;
 
+  private readonly eventService: EventService = inject(EventService);
+
   public ngOnInit(): void {
     // Resolver
     this.events = this.route.snapshot.data["events"];
@@ -51,6 +54,17 @@ export class HomeComponent implements OnInit {
       minimumPrice: this.minimumPriceFormControl,
       maximumPrice: this.maximumPriceFormControl,
       theme: this.themeFormControl,
+    });
+  }
+
+  public onFiltersSubmit(): void {
+    this.eventService.getFilteredEvents(
+      this.minimumPriceFormControl.value,
+      this.maximumPriceFormControl.value,
+      this.eventNameFormControl.value,
+      this.themeFormControl.value
+    ).subscribe((events: Event[]) => {
+      this.events = events;
     });
   }
 }

@@ -27,7 +27,17 @@ export class EventService {
     );
   }
 
-  public getFilteredEvents(minPrice: number | null, maxPrice: number | null, name: string, themeCode: keyof EventTheme): Observable<Event[]> {
-    return this.http.get<Event[]>(this.URL);
+  public getFilteredEvents(minPrice: number, maxPrice: number, name: string | null, themeCode: EventTheme | null): Observable<Event[]> {
+    let url: string = this.URL;
+    url += `?price_min=${minPrice}&price_max=${maxPrice}`;
+
+    if (name) {
+      url += `&name=${name}`;
+    }
+
+    if (themeCode) {
+      url += `&theme_code=${themeCode}`;
+    }
+    return this.http.get<Event[]>(url);
   }
 }

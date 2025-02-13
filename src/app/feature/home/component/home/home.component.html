@@ -28,7 +28,7 @@
         <h2>Filtres</h2>
       </mat-card-header>
       <mat-card-content>
-        <app-event-filter [filterFormGroup]="filterFormGroup"/>
+        <app-event-filter (onFiltersSubmit)="onFiltersSubmit()" [filterFormGroup]="filterFormGroup"/>
       </mat-card-content>
     </mat-card>
   </div>
