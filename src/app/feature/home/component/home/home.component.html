@@ -1,7 +1,7 @@
 <div class="home-container">
   <div class="welcome-container">
-    <h1 *ngIf="connectedUser$() as connectedUser">Bienvenue {{ connectedUser.username }} !</h1>
-    <div *ngIf="!connectedUser$()" class="login-container">
+    <h1 *ngIf="connectedUser as connectedUser">Bienvenue {{ connectedUser.username }} !</h1>
+    <div *ngIf="!connectedUser" class="login-container">
       <h1>Connectez-vous pour avoir accès à l'ensemble de l'application</h1>
       <div class="login-buttons-container">
         <button (click)="navigationService.navigateTo(APP_URL.LOGIN)" color="primary" mat-flat-button>Se connecter

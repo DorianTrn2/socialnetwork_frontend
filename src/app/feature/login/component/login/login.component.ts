@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
-import {APP_URL} from "../../../../core/constant/url.constant";
-import { LoginForm } from '../../model/loginForm';
-import { RegisterForm } from '../../model/registerForm';
-import { LoginService } from '../../login.service';
+import {Component, inject} from '@angular/core';
+import {Router} from '@angular/router';
+import {APP_URL, LOGIN_FRAGMENT} from "../../../../core/constant/url.constant";
+import {LoginForm} from '../../model/loginForm';
+import {RegisterForm} from '../../model/registerForm';
+import {LoginService} from '../../login.service';
 
 @Component({
   selector: 'app-login',
@@ -26,29 +26,28 @@ export class LoginComponent {
     this.hide = true;
     this.isRegister = false;
   }
-  
+
   ngOnInit() {
     const fragment = this.router.parseUrl(this.router.url).fragment;
-    if (fragment === 'logout') {
+    if (fragment === LOGIN_FRAGMENT.LOGOUT) {
       this.logoutController();
     }
-    this.isRegister = (fragment === 'register');
+    this.isRegister = (fragment === LOGIN_FRAGMENT.REGISTER);
   }
 
   onSubmit(xxForm: any) {
-    if(xxForm.invalid){
+    if (xxForm.invalid) {
       return;
     }
     if (this.isRegister) {
       this.registerController();
-    }
-    else {
+    } else {
       this.loginController();
     }
-}
+  }
 
   public navigateToRegister(): void {
-    this.router.navigate([], {fragment: "register"}).then();
+    this.router.navigate([], {fragment: LOGIN_FRAGMENT.REGISTER}).then();
     this.isRegister = true;
   }
 
@@ -63,7 +62,7 @@ export class LoginComponent {
       .subscribe({
         next: (response: any) => {
           console.log('Login next:', response);
-          this.router.navigate(['/home']).then();
+          this.router.navigate(['/' + APP_URL.HOME]).then();
         },
         error: (error: any) => {
           if (error.status === 401) {
@@ -80,7 +79,7 @@ export class LoginComponent {
     this.loginService.logout().subscribe({
       next: (response: any) => {
         console.log('Logout next:', response);
-        this.router.navigate(['/login']).then();
+        this.router.navigate(['/' + APP_URL.LOGIN]).then();
       },
       error: (error: any) => {
         console.error('Logout failed:', error);
@@ -90,24 +89,23 @@ export class LoginComponent {
 
   public registerController(): void {
     this.loginData = new LoginForm('', '');
-    this.loginService.
-    register(
-    this.registerData.login,
-    this.registerData.password,
-    this.registerData.email,
-    this.registerData.firstname,
-    this.registerData.lastname,
-    this.registerData.birthday)
-    .subscribe({
-      next: (response: any) => {
-        console.log('Register next:', response);
-        this.navigateToLogin();
-      },
-      error: (error: any) => {
-        console.error('Register failed:', error);
-      }
-    });
-    
+    this.loginService.register(
+      this.registerData.login,
+      this.registerData.password,
+      this.registerData.email,
+      this.registerData.firstname,
+      this.registerData.lastname,
+      this.registerData.birthday)
+      .subscribe({
+        next: (response: any) => {
+          console.log('Register next:', response);
+          this.navigateToLogin();
+        },
+        error: (error: any) => {
+          console.error('Register failed:', error);
+        }
+      });
+
     this.registerData = new RegisterForm('', '', '', '', '', '');
   }
 

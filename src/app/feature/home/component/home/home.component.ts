@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, Signal} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {User} from "@core/type/user.type";
 import {AuthenticationStore} from "@core/store/authentication/authentication.store";
 import {NavigationService} from "@core/service/navigation/navigation.service";
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   public filterFormGroup!: FormGroup;
 
-  protected readonly connectedUser$: Signal<User | null> = inject(AuthenticationStore).connectedUser$;
+  protected readonly connectedUser: User | null = inject(AuthenticationStore).connectedUser$()?.user ?? null;
 
   protected readonly APP_URL = APP_URL;
 
