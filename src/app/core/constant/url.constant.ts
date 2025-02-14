@@ -54,4 +54,5 @@ export const EVENTS_URL = {
 
 export const LOGIN_FRAGMENT = {
   REGISTER: "register",
+  LOGOUT: "logout",
 };

@@ -14,7 +14,8 @@
             mat-flat-button>Mes
       conversations
     </button>
-    <button (click)="navigationService.navigateTo(APP_URL.LOGIN)" color="primary" mat-stroked-button>
+    <button (click)="navigationService.navigateTo(APP_URL.LOGIN + '#' + LOGIN_FRAGMENT.LOGOUT)" color="primary"
+            mat-stroked-button>
       <span *ngIf="connectedUser$()">Se déconnecter</span>
       <span *ngIf="!connectedUser$()">Se connecter</span>
     </button>
