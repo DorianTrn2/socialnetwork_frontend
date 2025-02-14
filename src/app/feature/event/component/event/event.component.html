@@ -1,1 +1,35 @@
-<p>{{ event.name }}</p>
+<div class="event-info-container">
+  <div class="event-image-container">
+    <img [src]="eventImageUrl">
+  </div>
+  <h1>{{ event.name }}</h1>
+</div>
+<div class="main-event-content">
+  <mat-card class="event-card">
+    <mat-card-header>
+      <h2>Évènement : {{ event.name }}</h2>
+    </mat-card-header>
+    <mat-card-content class="event-card-content">
+      <div class="event-info">
+        <h4>Créateur de l'évènement</h4>
+        <span>{{ event.created_by_email }}</span>
+      </div>
+      <div class="event-info">
+        <h4>Prix</h4>
+        <span>{{ event.price }}€</span>
+      </div>
+      <div class="event-info">
+        <h4>Date</h4>
+        <span>{{ event.date | date }}</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="users-card">
+    <mat-card-header>
+      <h2>Utilisateurs aimant cet évènement</h2>
+    </mat-card-header>
+    <mat-card-content class="users-card-content">
+      <app-user-small-card *ngFor="let user of userWhoLikesEvent" [user]="user"></app-user-small-card>
+    </mat-card-content>
+  </mat-card>
+</div>

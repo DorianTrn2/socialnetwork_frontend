@@ -1,10 +1,11 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, of, tap} from "rxjs";
-import {BACKEND_ENDPOINT, BACKEND_URI} from "@core/constant/url.constant";
+import {BACKEND_ENDPOINT, BACKEND_EVENT_ENDPOINT, BACKEND_URI} from "@core/constant/url.constant";
 import {EventStore} from "@shared/event/store/event.store";
 import {Event} from "@core/type/event.type";
 import {EventTheme} from "@core/constant/theme.constant";
+import {User} from "@core/type/user.type";
 
 @Injectable()
 export class EventService {
@@ -29,7 +30,6 @@ export class EventService {
 
   public getEventById(eventId: string): Observable<Event | null> {
     return this.http.get<Event | null>(this.URL + '/' + eventId);
-    // return this.getEvents().pipe(map((events: Event[]) => events.find((event: Event) => eventId === event._id) ?? null));
   }
 
   public getFilteredEvents(minPrice: number, maxPrice: number, name: string | null, themeCode: EventTheme | null, date: Date | null, orderByDate: boolean, orderByPrice: boolean, ascendingOrder: boolean): Observable<Event[]> {
@@ -54,5 +54,9 @@ export class EventService {
       url += `&sort_by_price=${ascendingOrder ? 1 : -1}`
     }
     return this.http.get<Event[]>(url);
+  }
+
+  public getUserWhoLikedEvent(eventId: string): Observable<User[]> {
+    return this.http.get<User[]>(this.URL + '/' + eventId + '/' + BACKEND_EVENT_ENDPOINT.LIKES);
   }
 }

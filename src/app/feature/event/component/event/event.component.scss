@@ -1,0 +1,61 @@
+$image-size: 200px;
+$event-info-height: 300px;
+
+.event-image-container {
+  width: calc($image-size * 2);
+  height: $image-size;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    object-fit: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.event-info-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  height: $event-info-height;
+  justify-content: center;
+}
+
+.main-event-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100% - $event-info-height - 15px);
+}
+
+.event-card {
+  width: 100%;
+}
+
+.users-card {
+  margin-top: 15px;
+  width: 100%;
+  flex-grow: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.event-card-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  overflow-y: auto;
+}
+
+.users-card-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 40px;
+  overflow-y: auto; // Rend le contenu scrollable si nécessaire
+  flex-grow: 1;
+  margin-bottom: 20px;
+}

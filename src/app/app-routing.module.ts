@@ -11,6 +11,7 @@ import {profileResolver} from "@feature/profile/component/resolver/profile.resol
 import {EventComponent} from "@feature/event/component/event/event.component";
 import {eventResolver} from "@shared/event/resolver/event.resolver";
 import {authResolver} from "@core/resolver/auth.resolver";
+import {userWhoLikesEventResolver} from "@shared/event/resolver/user-who-likes-event.resolver";
 
 const routes: Routes = [
   {
@@ -54,23 +55,25 @@ const routes: Routes = [
       },
       {
         path: ':event_id',
+        component: EventComponent,
         resolve: {
-          event: eventResolver
+          event: eventResolver,
+          userWhoLikesEvent: userWhoLikesEventResolver,
         },
-        children: [
-          {
-            path: '',
-            component: EventComponent
-          },
-          {
-            path: EVENTS_URL.UPDATE,
-            component: EventComponent
-          },
-          {
-            path: '**',
-            redirectTo: APP_URL.HOME
-          },
-        ]
+        // children: [
+        //   {
+        //     path: '',
+        //     component: EventComponent
+        //   },
+        //   {
+        //     path: EVENTS_URL.UPDATE,
+        //     component: EventComponent
+        //   },
+        //   {
+        //     path: '**',
+        //     redirectTo: APP_URL.HOME
+        //   },
+        // ]
       },
       {
         path: '**',
