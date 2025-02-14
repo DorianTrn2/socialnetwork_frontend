@@ -13,10 +13,10 @@ export class LoginComponent implements OnInit {
   public ngOnInit() {
     this.authenticationStore.login({
       username: "Xx_KevinDu48_xX",
-      birthdate: new Date(Date.now()),
+      birthday: new Date(Date.now()),
       firstname: "Denis",
       isAdmin: false,
-      mail: "mail@mail.mail",
+      email: "mail@mail.mail",
       lastname: "De Nice",
       role_id: 4856,
     })

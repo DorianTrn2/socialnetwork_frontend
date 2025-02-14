@@ -1,12 +1,12 @@
 import {Event} from "@core/type/event.type";
 
 export interface User {
-  mail: string;
+  email: string;
   username: string;
   firstname: string;
   lastname: string;
   isAdmin: boolean;
-  birthdate: Date;
+  birthday: Date;
   role_id: number;
 }
 

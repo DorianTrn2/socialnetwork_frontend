@@ -32,7 +32,7 @@ const routes: Routes = [
     component: ProfileComponent,
     canActivate: [AuthGuard],
     resolve: {
-      profile: profileResolver,
+      userProfile: profileResolver,
     }
   },
   {
