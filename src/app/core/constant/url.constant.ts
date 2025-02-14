@@ -9,3 +9,5 @@ export const APP_URL = {
 export const EVENTS_URL = {
   NEW: "new",
 }
+
+export const API_URL = 'http://localhost:3001';
