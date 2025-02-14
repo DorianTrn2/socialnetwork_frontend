@@ -4,7 +4,9 @@
   </div>
   <div class="nav-links-container">
     <button (click)="navigationService.navigateTo(APP_URL.HOME)" color="primary" mat-flat-button>Accueil</button>
-    <button (click)="navigationService.navigateTo(APP_URL.EVENTS)" color="primary" mat-flat-button>Évènement</button>
+    <button (click)="navigationService.navigateTo(APP_URL.EVENT + '/' + EVENTS_URL.NEW)" color="primary"
+            mat-flat-button>Évènement
+    </button>
     <button (click)="navigationService.navigateTo(APP_URL.PROFILE)" *ngIf="connectedUser$()" color="primary"
             mat-flat-button>Mon compte
     </button>

@@ -37,21 +37,21 @@ export const BACKEND_USER_ENDPOINT = {
 export const BACKEND_CHAT_ENDPOINT = {
   ALL: "all",
   NEW: "new",
-}
+};
 
 // Front end URL
 export const APP_URL = {
   HOME: "home",
   LOGIN: "login",
   PROFILE: "profile",
-  EVENTS: "events",
+  EVENT: "event",
   CHATS: "chats",
 };
 
 export const EVENTS_URL = {
   NEW: "new",
-
+};
 
 export const LOGIN_FRAGMENT = {
   REGISTER: "register",
-
+};
