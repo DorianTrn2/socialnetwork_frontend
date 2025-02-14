@@ -22,6 +22,10 @@
         <h4>Date</h4>
         <span>{{ event.date | date }}</span>
       </div>
+      <mat-checkbox [formControl]="likeEventFormControl" class="like-event-container">
+        <span *ngIf="eventLiked$$()">💖</span>
+        <span *ngIf="!eventLiked$$()">Liker l'évènement</span>
+      </mat-checkbox>
     </mat-card-content>
   </mat-card>
   <mat-card class="users-card">
@@ -29,7 +33,7 @@
       <h2>Utilisateurs aimant cet évènement</h2>
     </mat-card-header>
     <mat-card-content class="users-card-content">
-      <app-user-small-card *ngFor="let user of userWhoLikesEvent" [user]="user"></app-user-small-card>
+      <app-user-small-card *ngFor="let user of userWhoLikesEvent$$()" [user]="user"></app-user-small-card>
     </mat-card-content>
   </mat-card>
 </div>

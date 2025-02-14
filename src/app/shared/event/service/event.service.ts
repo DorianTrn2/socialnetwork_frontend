@@ -9,7 +9,7 @@ import {User} from "@core/type/user.type";
 
 @Injectable()
 export class EventService {
-  private readonly URL: string = `${BACKEND_URI}/${BACKEND_ENDPOINT.EVENT}`;
+  private readonly baseUrl: string = `${BACKEND_URI}/${BACKEND_ENDPOINT.EVENT}`;
 
   private readonly http: HttpClient = inject(HttpClient);
 
@@ -21,7 +21,7 @@ export class EventService {
       return of(storedEvents);
     }
 
-    return this.http.get<Event[]>(this.URL).pipe(
+    return this.http.get<Event[]>(this.baseUrl).pipe(
       tap((events: Event[]) => {
         this.eventStore.setEvents(events);
       })
@@ -29,11 +29,11 @@ export class EventService {
   }
 
   public getEventById(eventId: string): Observable<Event | null> {
-    return this.http.get<Event | null>(this.URL + '/' + eventId);
+    return this.http.get<Event | null>(this.baseUrl + '/' + eventId);
   }
 
   public getFilteredEvents(minPrice: number, maxPrice: number, name: string | null, themeCode: EventTheme | null, date: Date | null, orderByDate: boolean, orderByPrice: boolean, ascendingOrder: boolean): Observable<Event[]> {
-    let url: string = this.URL;
+    let url: string = this.baseUrl;
     url += `?price_min=${minPrice}&price_max=${maxPrice}`;
 
     if (name) {
@@ -57,6 +57,11 @@ export class EventService {
   }
 
   public getUserWhoLikedEvent(eventId: string): Observable<User[]> {
-    return this.http.get<User[]>(this.URL + '/' + eventId + '/' + BACKEND_EVENT_ENDPOINT.LIKES);
+    return this.http.get<User[]>(this.baseUrl + '/' + eventId + '/' + BACKEND_EVENT_ENDPOINT.LIKES);
+  }
+
+  public likeOrUnlikeEvent(eventId: string, liked: boolean): void {
+    const url: string = this.baseUrl + '/' + eventId + '/' + (liked ? BACKEND_EVENT_ENDPOINT.LIKE : BACKEND_EVENT_ENDPOINT.UNLIKE);
+    this.http.post(url, null, {withCredentials: true}).subscribe();
   }
 }

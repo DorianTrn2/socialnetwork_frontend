@@ -7,6 +7,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatRadioModule} from "@angular/material/radio";
 import {ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "@shared/shared.module";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {SharedModule} from "@shared/shared.module";
     MatFormFieldModule,
     MatRadioModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    MatCheckboxModule
   ]
 })
 export class EventModule {

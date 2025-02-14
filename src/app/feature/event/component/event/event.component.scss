@@ -33,6 +33,21 @@ $event-info-height: 300px;
 
 .event-card {
   width: 100%;
+  position: relative;
+}
+
+.event-card-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  overflow-y: auto;
+}
+
+.like-event-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 200px;
 }
 
 .users-card {
@@ -44,18 +59,10 @@ $event-info-height: 300px;
   flex-direction: column;
 }
 
-.event-card-content {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 50px;
-  overflow-y: auto;
-}
-
 .users-card-content {
   display: flex;
   flex-wrap: wrap;
   gap: 10px 40px;
-  overflow-y: auto; // Rend le contenu scrollable si nécessaire
   flex-grow: 1;
   margin-bottom: 20px;
 }
