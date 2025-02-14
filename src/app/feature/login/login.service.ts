@@ -7,7 +7,7 @@ import {BACKEND_AUTH_ENDPOINT, BACKEND_ENDPOINT, BACKEND_URI} from 'src/app/core
 })
 export class LoginService {
 
-  private base_url = BACKEND_URI + '/' + BACKEND_ENDPOINT.AUTH + '/';
+  private base_url = BACKEND_URI + '/' + BACKEND_ENDPOINT.AUTH;
   private login_url = this.base_url + '/' + BACKEND_AUTH_ENDPOINT.LOGIN;
   private register_url = this.base_url + '/' + BACKEND_AUTH_ENDPOINT.REGISTER;
   private logout_url = this.base_url + '/' + BACKEND_AUTH_ENDPOINT.LOGOUT;
