@@ -7,7 +7,7 @@ import {ProfileComponent} from "@feature/profile/component/profile/profile.compo
 import {LoginComponent} from "@feature/login/component/login/login.component";
 import {eventResolver} from "@shared/event/resolver/event.resolver";
 import {AuthGuard} from "@core/guard/auth.guard";
-import {profileResolver} from "@feature/profile/resolver/profile.resolver";
+import {profileResolver} from "@feature/profile/component/resolver/profile.resolver";
 
 const routes: Routes = [
   {
