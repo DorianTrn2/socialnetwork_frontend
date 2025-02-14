@@ -32,4 +32,5 @@ $socialnetwork_frontend-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($socialnetwork_frontend-theme);
 
+$navbar-height: 100px;
 

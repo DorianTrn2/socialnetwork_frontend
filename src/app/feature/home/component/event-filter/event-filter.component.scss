@@ -1,0 +1,28 @@
+.filter-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.prices-range-display {
+  width: 100%;
+  text-align: center;
+}
+
+.sort-type-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.horizontal-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.half-width-form-field {
+  width: 47%;
+}

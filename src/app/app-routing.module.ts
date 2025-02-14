@@ -2,10 +2,10 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {HomeComponent} from "./feature/home/component/home/home.component";
 import {APP_URL} from "./core/constant/url.constant";
-import {EventsComponent} from "./feature/events/component/events/events.component";
 import {ChatsComponent} from "./feature/chats/component/chats/chats.component";
 import {ProfileComponent} from "./feature/profile/component/profile/profile.component";
 import {LoginComponent} from "./feature/login/component/login/login.component";
+import {eventResolver} from "@shared/event/resolver/event.resolver";
 
 const routes: Routes = [
   {
@@ -16,10 +16,9 @@ const routes: Routes = [
   {
     path: APP_URL.HOME,
     component: HomeComponent,
-  },
-  {
-    path: APP_URL.EVENTS,
-    component: EventsComponent,
+    resolve: {
+      events: eventResolver
+    },
   },
   {
     path: APP_URL.CHATS,
