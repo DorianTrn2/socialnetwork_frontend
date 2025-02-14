@@ -50,6 +50,7 @@ export const APP_URL = {
 
 export const EVENTS_URL = {
   NEW: "new",
+  UPDATE: "update",
 };
 
 export const LOGIN_FRAGMENT = {

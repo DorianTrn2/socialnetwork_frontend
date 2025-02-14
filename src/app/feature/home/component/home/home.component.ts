@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, computed, inject, OnInit, Signal} from '@angular/core';
 import {User} from "@core/type/user.type";
 import {AuthenticationStore} from "@core/store/authentication/authentication.store";
 import {NavigationService} from "@core/service/navigation/navigation.service";
@@ -19,36 +19,22 @@ export class HomeComponent implements OnInit {
   public events!: Event[];
 
   public filterFormGroup!: FormGroup;
-
-  protected readonly connectedUser: User | null = inject(AuthenticationStore).connectedUser$()?.user ?? null;
-
   protected readonly APP_URL = APP_URL;
-
   protected readonly LOGIN_FRAGMENT = LOGIN_FRAGMENT;
-
   protected readonly navigationService: NavigationService = inject(NavigationService);
-
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
-
   private eventNameFormControl!: FormControl<string | null>;
-
   private minimumPriceFormControl!: FormControl<number>;
-
   private maximumPriceFormControl!: FormControl<number>;
-
   private themeFormControl!: FormControl<EventTheme | null>;
-
   private dateFormControl!: FormControl<Date | null>;
-
   private sortByDateFormControl!: FormControl<boolean>;
-
   private sortByDateOrderFormControl!: FormControl<boolean>;
-
   private sortByPriceFormControl!: FormControl<boolean>;
-
   private sortByPriceOrderFormControl!: FormControl<boolean>;
-
   private readonly eventService: EventService = inject(EventService);
+  private readonly authStore: AuthenticationStore = inject(AuthenticationStore);
+  protected readonly connectedUser$: Signal<User | null> = computed(() => this.authStore.connectedUser$()?.user ?? null)
 
   public ngOnInit(): void {
     // Resolver
