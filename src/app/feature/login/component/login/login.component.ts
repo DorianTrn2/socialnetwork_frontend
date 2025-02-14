@@ -1,23 +1,117 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {AuthenticationStore} from "../../../../core/store/authentication/authentication.store";
+
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import {APP_URL} from "../../../../core/constant/url.constant";
+import { LoginForm } from '../../model/loginForm';
+import { RegisterForm } from '../../model/registerForm';
+import { LoginService } from '../../login.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-  private readonly authenticationStore: AuthenticationStore = inject(AuthenticationStore);
+export class LoginComponent {
+  loginData: LoginForm;
+  registerData: RegisterForm;
+  hide: boolean;
+  isRegister: boolean;
 
-  // TODO to remove when login works
-  public ngOnInit() {
-    this.authenticationStore.login({
-      username: "Super UserType de fou furax",
-      birthdate: new Date(Date.now()),
-      firstname: "Denis",
-      isAdmin: false,
-      mail: "mail@mail.mail",
-      lastname: "De Nice",
-    })
+  protected readonly APP_URL = APP_URL;
+  private readonly router: Router = inject(Router);
+  private readonly loginService: LoginService = inject(LoginService);
+
+  constructor() {
+    this.loginData = new LoginForm('', '');
+    this.registerData = new RegisterForm('', '', '', '', '', '');
+    this.hide = true;
+    this.isRegister = false;
   }
+  
+  ngOnInit() {
+    const fragment = this.router.parseUrl(this.router.url).fragment;
+    if (fragment === 'logout') {
+      this.logoutController();
+    }
+    this.isRegister = (fragment === 'register');
+  }
+
+  onSubmit(xxForm: any) {
+    if(xxForm.invalid){
+      return;
+    }
+    if (this.isRegister) {
+      this.registerController();
+    }
+    else {
+      this.loginController();
+    }
 }
+
+  public navigateToRegister(): void {
+    this.router.navigate([], {fragment: "register"}).then();
+    this.isRegister = true;
+  }
+
+  public navigateToLogin(): void {
+    this.router.navigate([], {fragment: ''}).then();
+    this.isRegister = false;
+  }
+
+  public loginController(): void {
+    this.registerData = new RegisterForm('', '', '', '', '', '');
+    this.loginService.login(this.loginData.login, this.loginData.password)
+      .subscribe({
+        next: (response: any) => {
+          console.log('Login next:', response);
+          this.router.navigate(['/home']).then();
+        },
+        error: (error: any) => {
+          if (error.status === 401) {
+            console.error('Login failed: Forbidden', error);
+          } else {
+            console.error('Login failed:', error);
+          }
+        }
+      });
+    this.loginData = new LoginForm('', '');
+  }
+
+  public logoutController(): void {
+    this.loginService.logout().subscribe({
+      next: (response: any) => {
+        console.log('Logout next:', response);
+        this.router.navigate(['/login']).then();
+      },
+      error: (error: any) => {
+        console.error('Logout failed:', error);
+      }
+    });
+  }
+
+  public registerController(): void {
+    this.loginData = new LoginForm('', '');
+    this.loginService.
+    register(
+    this.registerData.login,
+    this.registerData.password,
+    this.registerData.email,
+    this.registerData.firstname,
+    this.registerData.lastname,
+    this.registerData.birthday)
+    .subscribe({
+      next: (response: any) => {
+        console.log('Register next:', response);
+        this.navigateToLogin();
+      },
+      error: (error: any) => {
+        console.error('Register failed:', error);
+      }
+    });
+    
+    this.registerData = new RegisterForm('', '', '', '', '', '');
+  }
+
+
+}
+
