@@ -1,0 +1,69 @@
+$image-size: 150px;
+$user-info-height: 250px;
+.user-image-container {
+  width: $image-size;
+  height: $image-size;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    object-fit: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.user-info-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  height: $user-info-height;
+  justify-content: center;
+}
+
+.main-profile-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  height: calc(100% - $user-info-height - 15px);
+}
+
+.profile-card {
+  width: 55%;
+}
+
+.event-card {
+  width: 43%;
+}
+
+.profile-card-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  overflow-y: auto;
+}
+
+.select-displayed-events {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.display-events-label {
+  margin-right: 50px;
+}
+
+.display-events-button {
+  margin-right: 30px;
+}
+
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}

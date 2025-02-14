@@ -1,5 +1,5 @@
 import {Component, inject, OnInit, Signal} from '@angular/core';
-import {UserType} from "@core/type/user.type";
+import {User} from "@core/type/user.type";
 import {AuthenticationStore} from "@core/store/authentication/authentication.store";
 import {NavigationService} from "@core/service/navigation/navigation.service";
 import {APP_URL, LOGIN_FRAGMENT} from "@core/constant/url.constant";
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   public filterFormGroup!: FormGroup;
 
-  protected readonly connectedUser$: Signal<UserType | null> = inject(AuthenticationStore).connectedUser$;
+  protected readonly connectedUser$: Signal<User | null> = inject(AuthenticationStore).connectedUser$;
 
   protected readonly APP_URL = APP_URL;
 
