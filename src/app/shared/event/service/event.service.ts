@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, of, tap} from "rxjs";
 import {BACKEND_ENDPOINT, BACKEND_EVENT_ENDPOINT, BACKEND_URI} from "@core/constant/url.constant";
-import {EventStore} from "@shared/event/store/event.store";
+import {EventsStore} from "@shared/event/store/events.store";
 import {Event} from "@core/type/event.type";
 import {EventTheme} from "@core/constant/theme.constant";
 import {User} from "@core/type/user.type";
@@ -13,17 +13,17 @@ export class EventService {
 
   private readonly http: HttpClient = inject(HttpClient);
 
-  private readonly eventStore: EventStore = inject(EventStore);
+  private readonly eventsStore: EventsStore = inject(EventsStore);
 
   public getEvents(): Observable<Event[]> {
-    const storedEvents: Event[] | null = this.eventStore.events$();
+    const storedEvents: Event[] | null = this.eventsStore.events$();
     if (storedEvents !== null) {
       return of(storedEvents);
     }
 
     return this.http.get<Event[]>(this.baseUrl).pipe(
       tap((events: Event[]) => {
-        this.eventStore.setEvents(events);
+        this.eventsStore.setEvents(events);
       })
     );
   }
@@ -68,6 +68,11 @@ export class EventService {
   public postNewEvent(event: Event): Observable<Event | null> {
     const url: string = this.baseUrl + '/' + BACKEND_EVENT_ENDPOINT.NEW;
     return this.http.post<Event | null>(url, event, {withCredentials: true});
+  }
+
+  public updateEvent(event: Event): Observable<void> {
+    const url: string = this.baseUrl + '/' + event._id + '/' + BACKEND_EVENT_ENDPOINT.UPDATE;
+    return this.http.put<void>(url, event, {withCredentials: true});
   }
 
   public postEventImage(eventId: string, image: File): Observable<void> {

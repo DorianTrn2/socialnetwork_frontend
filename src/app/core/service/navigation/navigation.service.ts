@@ -15,7 +15,7 @@ export class NavigationService {
     ).then();
   }
 
-  public navigateRelative(destination: string[], route: ActivatedRoute): void {
-    this.router.navigate(destination, {relativeTo: route}).then();
+  public navigateRelative(destination: string[], route: ActivatedRoute): Promise<boolean> {
+    return this.router.navigate(destination, {relativeTo: route});
   }
 }

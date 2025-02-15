@@ -61,6 +61,7 @@ const routes: Routes = [
           event: eventResolver,
           userWhoLikesEvent: userWhoLikesEventResolver,
         },
+        runGuardsAndResolvers: 'always',
         children: [
           {
             path: '',

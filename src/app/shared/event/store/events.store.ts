@@ -2,7 +2,7 @@ import {Injectable, signal, Signal, WritableSignal} from '@angular/core';
 import {Event} from "@core/type/event.type";
 
 @Injectable()
-export class EventStore {
+export class EventsStore {
   private events$$: WritableSignal<Event[] | null> = signal(null);
 
   public readonly events$: Signal<Event[] | null> = this.events$$.asReadonly();

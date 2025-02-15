@@ -59,6 +59,6 @@ export class EventComponent implements OnInit {
   }
 
   public onEditEventClick(): void {
-    this.navigationService.navigateRelative([EVENTS_URL.UPDATE], this.route);
+    this.navigationService.navigateRelative([EVENTS_URL.UPDATE], this.route).then();
   }
 }

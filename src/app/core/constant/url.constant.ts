@@ -53,6 +53,10 @@ export const EVENTS_URL = {
   UPDATE: "update",
 };
 
+export const EVENTS_FRAGMENT = {
+  RELOAD: "reload",
+}
+
 export const LOGIN_FRAGMENT = {
   REGISTER: "register",
   LOGOUT: "logout",

@@ -32,34 +32,38 @@
       <div class="form-fields-container">
         <div class="form-field-container">
           <h3>Nom de l'évènement</h3>
-          <mat-form-field class="width-full" subscriptSizing="dynamic">
+          <mat-form-field class="width-full">
             <mat-label>Nom de l'évènement</mat-label>
             <input formControlName="name" matInput type="text">
+            <mat-error>Obligatoire</mat-error>
           </mat-form-field>
         </div>
         <div class="form-field-container">
           <h3>Prix de l'évènement</h3>
-          <mat-form-field class="width-full" subscriptSizing="dynamic">
+          <mat-form-field class="width-full">
             <mat-label>Prix de l'évènement (€)</mat-label>
             <input formControlName="price" matInput type="number">
+            <mat-error>Obligatoire, compris entre 1 et 100</mat-error>
           </mat-form-field>
         </div>
         <div class="form-field-container">
           <h3>Date de l'évènement</h3>
-          <mat-form-field class="width-full" subscriptSizing="dynamic">
+          <mat-form-field class="width-full">
             <mat-label>Date de l'évènement</mat-label>
             <input [matDatepicker]="picker" formControlName="date" matInput>
             <mat-datepicker-toggle [for]="picker" matIconSuffix></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
+            <mat-error>Obligatoire</mat-error>
           </mat-form-field>
         </div>
         <div class="form-field-container">
           <h3>Thème de l'évènement</h3>
-          <mat-form-field class="width-full" subscriptSizing="dynamic">
+          <mat-form-field class="width-full">
             <mat-label>Thème de l'évènement</mat-label>
             <mat-select formControlName="theme">
               <mat-option *ngFor="let theme of eventThemes" [value]="theme">{{ EVENT_THEME[theme] }}</mat-option>
             </mat-select>
+            <mat-error>Obligatoire</mat-error>
           </mat-form-field>
         </div>
       </div>

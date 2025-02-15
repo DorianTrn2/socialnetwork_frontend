@@ -56,7 +56,7 @@ export class EventFormComponent implements OnInit {
     this.eventNameFormControl = new FormControl(this.eventToEdit?.name ?? null, Validators.required);
     this.eventDateFormControl = new FormControl(this.eventToEdit?.date ?? null, Validators.required);
     this.eventThemeFormControl = new FormControl(this.eventToEdit?.theme_code ?? null, Validators.required);
-    this.eventPriceFormControl = new FormControl(this.eventToEdit?.price ?? 0, Validators.required);
+    this.eventPriceFormControl = new FormControl(this.eventToEdit?.price ?? 1, [Validators.required, Validators.min(1), Validators.max(100)]);
     this.eventImageFormControl = new FormControl(null);
 
     if (this.eventToEdit) {
@@ -69,6 +69,10 @@ export class EventFormComponent implements OnInit {
       theme: this.eventThemeFormControl,
       price: this.eventPriceFormControl,
       image: this.eventImageFormControl,
+    });
+
+    this.eventImageFormControl.valueChanges.subscribe(() => {
+      this.eventFormGroup.markAsDirty();
     })
   }
 
@@ -108,20 +112,32 @@ export class EventFormComponent implements OnInit {
       theme_code: this.eventThemeFormControl.value as EventTheme,
       date: this.eventDateFormControl.value as Date,
       price: this.eventPriceFormControl.value as number,
-      _id: '',
-      created_by_email: this.authenticationStore.connectedUser$()?.user?.email ?? ''
+      _id: this.eventToEdit?._id ?? '',
+      created_by_email: this.eventToEdit?.created_by_email ?? this.authenticationStore.connectedUser$()?.user?.email ?? '',
     };
 
-    this.eventService.postNewEvent(eventToSubmit).subscribe((event: Event | null) => {
-      if (event) {
-        console.log(this.eventImageFormControl.value);
+    if (this.editMode$$()) {
+      this.eventService.updateEvent(eventToSubmit).subscribe(() => {
         if (this.eventImageFormControl.value) {
-          this.eventService.postEventImage(event._id, this.eventImageFormControl.value).subscribe();
+          this.eventService.postEventImage(eventToSubmit._id, this.eventImageFormControl.value).subscribe(() => {
+            this.navigationService.navigateTo(APP_URL.EVENT + '/' + eventToSubmit._id);
+          });
         }
-        this.navigationService.navigateTo(APP_URL.EVENT + '/' + event._id);
-      } else {
-        this.navigationService.navigateTo(APP_URL.HOME);
-      }
-    })
+        this.navigationService.navigateTo(APP_URL.EVENT + '/' + eventToSubmit._id);
+      })
+    } else {
+      this.eventService.postNewEvent(eventToSubmit).subscribe((event: Event | null) => {
+        if (event) {
+          if (this.eventImageFormControl.value) {
+            this.eventService.postEventImage(event._id, this.eventImageFormControl.value).subscribe(() => {
+              this.navigationService.navigateTo(APP_URL.EVENT + '/' + eventToSubmit._id);
+            });
+          }
+          this.navigationService.navigateTo(APP_URL.EVENT + '/' + event._id);
+        } else {
+          this.navigationService.navigateTo(APP_URL.HOME);
+        }
+      })
+    }
   }
 }
