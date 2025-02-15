@@ -1,5 +1,5 @@
-$image-size: 400px;
-$event-info-height: 600px;
+$image-size: 300px;
+$event-info-height: 500px;
 
 .event-info-container {
   display: flex;
@@ -58,4 +58,23 @@ $event-info-height: 600px;
 
 .event-form-card-content {
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-fields-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.form-field-container {
+  flex: 1;
+}
+
+.submit-button-container {
+  width: 200px;
 }

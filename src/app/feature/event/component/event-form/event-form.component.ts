@@ -1,7 +1,7 @@
 import {Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {FormControl, Validators} from "@angular/forms";
-import {EventTheme} from "@core/constant/theme.constant";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {EVENT_THEME, EventTheme} from "@core/constant/theme.constant";
 import {Event} from "@core/type/event.type";
 import {BACKEND_ENDPOINT, BACKEND_EVENT_ENDPOINT, BACKEND_URI} from "@core/constant/url.constant";
 
@@ -23,12 +23,15 @@ export class EventFormComponent implements OnInit {
 
   public eventImageFormControl!: FormControl<File | null>;
 
+  public eventFormGroup!: FormGroup;
+
   public selectedImage: string | null = null;
 
   public eventToEdit!: Event | null;
 
+  public eventThemes: EventTheme[] = Object.keys(EVENT_THEME) as EventTheme[];
+  protected readonly EVENT_THEME = EVENT_THEME;
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
-
   private fileInput: HTMLInputElement | null = null;
 
   public ngOnInit(): void {
@@ -47,6 +50,14 @@ export class EventFormComponent implements OnInit {
     if (this.eventToEdit) {
       this.selectedImage = `${BACKEND_URI}/${BACKEND_ENDPOINT.EVENT}/${this.eventToEdit._id}/${BACKEND_EVENT_ENDPOINT.GET_IMAGE}`;
     }
+
+    this.eventFormGroup = new FormGroup({
+      name: this.eventNameFormControl,
+      date: this.eventDateFormControl,
+      theme: this.eventThemeFormControl,
+      price: this.eventPriceFormControl,
+      image: this.eventImageFormControl,
+    })
   }
 
   public onEventImageClick(): void {
@@ -77,5 +88,9 @@ export class EventFormComponent implements OnInit {
 
       this.eventImageFormControl.setValue(file);
     }
+  }
+
+  public onSubmit(): void {
+
   }
 }

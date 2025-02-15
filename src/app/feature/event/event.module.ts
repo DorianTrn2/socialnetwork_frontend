@@ -11,6 +11,10 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {EventFormComponent} from './component/event-form/event-form.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
+import {MatInputModule} from "@angular/material/input";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -28,7 +32,11 @@ import {MatIconModule} from "@angular/material/icon";
     SharedModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatOptionModule,
+    MatSelectModule
   ]
 })
 export class EventModule {

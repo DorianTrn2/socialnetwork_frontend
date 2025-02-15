@@ -23,12 +23,51 @@
   <h2 *ngIf="!eventNameFormControl.value"><i>Nom de l'évènement</i></h2>
 </div>
 
-<form class="event-form">
+<form (ngSubmit)="onSubmit()" [formGroup]="eventFormGroup" class="event-form">
   <mat-card class="event-form-card">
     <mat-card-header>
       <h2>Formulaire de l'évènement</h2>
     </mat-card-header>
     <mat-card-content class="event-form-card-content">
+      <div class="form-fields-container">
+        <div class="form-field-container">
+          <h3>Nom de l'évènement</h3>
+          <mat-form-field class="width-full" subscriptSizing="dynamic">
+            <mat-label>Nom de l'évènement</mat-label>
+            <input formControlName="name" matInput type="text">
+          </mat-form-field>
+        </div>
+        <div class="form-field-container">
+          <h3>Prix de l'évènement</h3>
+          <mat-form-field class="width-full" subscriptSizing="dynamic">
+            <mat-label>Prix de l'évènement (€)</mat-label>
+            <input formControlName="price" matInput type="number">
+          </mat-form-field>
+        </div>
+        <div class="form-field-container">
+          <h3>Date de l'évènement</h3>
+          <mat-form-field class="width-full" subscriptSizing="dynamic">
+            <mat-label>Date de l'évènement</mat-label>
+            <input [matDatepicker]="picker" formControlName="date" matInput>
+            <mat-datepicker-toggle [for]="picker" matIconSuffix></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="form-field-container">
+          <h3>Thème de l'évènement</h3>
+          <mat-form-field class="width-full" subscriptSizing="dynamic">
+            <mat-label>Thème de l'évènement</mat-label>
+            <mat-select formControlName="theme">
+              <mat-option *ngFor="let theme of eventThemes" [value]="theme">{{ EVENT_THEME[theme] }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="submit-button-container">
+        <button [disabled]="eventFormGroup.pristine || !eventFormGroup.valid" class="width-full" color="primary"
+                mat-flat-button type="submit">Enregistrer
+        </button>
+      </div>
     </mat-card-content>
   </mat-card>
 </form>
