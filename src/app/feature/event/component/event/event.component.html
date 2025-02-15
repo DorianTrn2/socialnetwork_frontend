@@ -3,7 +3,7 @@
     <img [src]="eventImageUrl">
   </div>
   <h1>{{ event.name }}</h1>
-  <button (click)="onEditEventClick()" mat-icon-button>
+  <button (click)="onEditEventClick()" *ngIf="userCanEditEvent" class="edit-event-button" mat-icon-button>
     <mat-icon>edit</mat-icon>
   </button>
 </div>

@@ -7,6 +7,7 @@ import {User} from "@core/type/user.type";
 import {AuthenticationStore} from "@core/store/authentication/authentication.store";
 import {EventService} from "@shared/event/service/event.service";
 import {NavigationService} from "@core/service/navigation/navigation.service";
+import {USER_ROLE_ID} from "@core/constant/user-role.constant";
 
 @Component({
   selector: 'app-event',
@@ -23,6 +24,8 @@ export class EventComponent implements OnInit {
   public likeEventFormControl!: FormControl<boolean>;
 
   public eventImageUrl!: string;
+
+  public userCanEditEvent!: boolean;
 
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
 
@@ -42,6 +45,8 @@ export class EventComponent implements OnInit {
     const userLikeEvent: boolean = this.userWhoLikesEvent$$().some((user: User) => user.username === this.authenticationStore.connectedUser$()?.user?.username ?? false)
     this.eventLiked$$.set(userLikeEvent);
     this.likeEventFormControl = new FormControl(userLikeEvent, {nonNullable: true});
+
+    this.userCanEditEvent = this.authenticationStore.connectedUser$()?.user?.email === this.event.created_by_email || this.authenticationStore.connectedUser$()?.user?.role_id === USER_ROLE_ID.ADMIN;
 
     this.likeEventFormControl.valueChanges.subscribe((liked: boolean) => {
       this.eventLiked$$.set(liked);
