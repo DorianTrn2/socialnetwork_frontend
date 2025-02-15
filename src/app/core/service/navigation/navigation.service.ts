@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +13,9 @@ export class NavigationService {
         fragment
       }
     ).then();
+  }
+
+  public navigateRelative(destination: string[], route: ActivatedRoute): void {
+    this.router.navigate(destination, {relativeTo: route}).then();
   }
 }

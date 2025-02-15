@@ -8,11 +8,15 @@ import {MatRadioModule} from "@angular/material/radio";
 import {ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "@shared/shared.module";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {EventFormComponent} from './component/event-form/event-form.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
   declarations: [
-    EventComponent
+    EventComponent,
+    EventFormComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +26,9 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatRadioModule,
     ReactiveFormsModule,
     SharedModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatButtonModule,
+    MatIconModule
   ]
 })
 export class EventModule {

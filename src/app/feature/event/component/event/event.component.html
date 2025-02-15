@@ -3,6 +3,9 @@
     <img [src]="eventImageUrl">
   </div>
   <h1>{{ event.name }}</h1>
+  <button (click)="onEditEventClick()" mat-icon-button>
+    <mat-icon>edit</mat-icon>
+  </button>
 </div>
 <div class="main-event-content">
   <mat-card class="event-card">

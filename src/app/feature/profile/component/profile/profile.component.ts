@@ -2,7 +2,7 @@ import {Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {UserProfile} from "@core/type/user.type";
 import {BACKEND_ENDPOINT, BACKEND_URI, BACKEND_USER_ENDPOINT} from "@core/constant/url.constant";
 import {ActivatedRoute} from "@angular/router";
-import {USER_ROLE} from "@core/constant/user-role.constant";
+import {USER_ROLE_NAME} from "@core/constant/user-role.constant";
 import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
 
   public userImageUrl!: string;
 
-  protected readonly USER_ROLE = USER_ROLE;
+  protected readonly USER_ROLE = USER_ROLE_NAME;
 
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
 
@@ -35,7 +35,6 @@ export class ProfileComponent implements OnInit {
     });
 
     this.displayCreatedEventsFormControl.valueChanges.subscribe((displayCreatedEvents: boolean) => {
-      console.log(displayCreatedEvents);
       this.displayCreatedEvents$$.set(displayCreatedEvents);
     })
   }

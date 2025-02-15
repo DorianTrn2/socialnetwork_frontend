@@ -37,22 +37,22 @@
 
 
   <div class="sort-type-container">
-    <mat-slide-toggle [disabled]="filterFormGroup.controls['sortByPrice'].value" formControlName="sortByDate">
+    <mat-slide-toggle formControlName="sortByDate">
       Trier par date
     </mat-slide-toggle>
 
-    <mat-radio-group [disabled]="!filterFormGroup.controls['sortByDate'].value" formControlName="sortByDateOrder">
+    <mat-radio-group formControlName="sortByDateOrder">
       <mat-radio-button [value]="true">Croissant</mat-radio-button>
       <mat-radio-button [value]="false">Décroissant</mat-radio-button>
     </mat-radio-group>
   </div>
 
   <div class="sort-type-container">
-    <mat-slide-toggle [disabled]="filterFormGroup.controls['sortByDate'].value" formControlName="sortByPrice">
+    <mat-slide-toggle formControlName="sortByPrice">
       Trier par prix
     </mat-slide-toggle>
 
-    <mat-radio-group [disabled]="!filterFormGroup.controls['sortByPrice'].value" formControlName="sortByPriceOrder">
+    <mat-radio-group formControlName="sortByPriceOrder">
       <mat-radio-button [value]="true">Croissant</mat-radio-button>
       <mat-radio-button [value]="false">Décroissant</mat-radio-button>
     </mat-radio-group>
