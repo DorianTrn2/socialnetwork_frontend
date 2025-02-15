@@ -64,4 +64,18 @@ export class EventService {
     const url: string = this.baseUrl + '/' + eventId + '/' + (liked ? BACKEND_EVENT_ENDPOINT.LIKE : BACKEND_EVENT_ENDPOINT.UNLIKE);
     this.http.post(url, null, {withCredentials: true}).subscribe();
   }
+
+  public postNewEvent(event: Event): Observable<Event | null> {
+    const url: string = this.baseUrl + '/' + BACKEND_EVENT_ENDPOINT.NEW;
+    return this.http.post<Event | null>(url, event, {withCredentials: true});
+  }
+
+  public postEventImage(eventId: string, image: File): Observable<void> {
+    const url: string = this.baseUrl + '/' + eventId + '/' + BACKEND_EVENT_ENDPOINT.SEND_IMAGE;
+
+    const formData = new FormData();
+    formData.append('image', image);
+
+    return this.http.post<void>(url, formData, {withCredentials: true});
+  }
 }

@@ -3,7 +3,10 @@ import {ActivatedRoute} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {EVENT_THEME, EventTheme} from "@core/constant/theme.constant";
 import {Event} from "@core/type/event.type";
-import {BACKEND_ENDPOINT, BACKEND_EVENT_ENDPOINT, BACKEND_URI} from "@core/constant/url.constant";
+import {APP_URL, BACKEND_ENDPOINT, BACKEND_EVENT_ENDPOINT, BACKEND_URI} from "@core/constant/url.constant";
+import {AuthenticationStore} from "@core/store/authentication/authentication.store";
+import {EventService} from "@shared/event/service/event.service";
+import {NavigationService} from "@core/service/navigation/navigation.service";
 
 @Component({
   selector: 'app-event-form',
@@ -30,9 +33,18 @@ export class EventFormComponent implements OnInit {
   public eventToEdit!: Event | null;
 
   public eventThemes: EventTheme[] = Object.keys(EVENT_THEME) as EventTheme[];
+
   protected readonly EVENT_THEME = EVENT_THEME;
+
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
+
   private fileInput: HTMLInputElement | null = null;
+
+  private readonly authenticationStore: AuthenticationStore = inject(AuthenticationStore);
+
+  private readonly eventService: EventService = inject(EventService);
+
+  private readonly navigationService: NavigationService = inject(NavigationService);
 
   public ngOnInit(): void {
     // Resolver
@@ -91,6 +103,25 @@ export class EventFormComponent implements OnInit {
   }
 
   public onSubmit(): void {
+    const eventToSubmit: Event = {
+      name: this.eventNameFormControl.value as string,
+      theme_code: this.eventThemeFormControl.value as EventTheme,
+      date: this.eventDateFormControl.value as Date,
+      price: this.eventPriceFormControl.value as number,
+      _id: '',
+      created_by_email: this.authenticationStore.connectedUser$()?.user?.email ?? ''
+    };
 
+    this.eventService.postNewEvent(eventToSubmit).subscribe((event: Event | null) => {
+      if (event) {
+        console.log(this.eventImageFormControl.value);
+        if (this.eventImageFormControl.value) {
+          this.eventService.postEventImage(event._id, this.eventImageFormControl.value).subscribe();
+        }
+        this.navigationService.navigateTo(APP_URL.EVENT + '/' + event._id);
+      } else {
+        this.navigationService.navigateTo(APP_URL.HOME);
+      }
+    })
   }
 }
