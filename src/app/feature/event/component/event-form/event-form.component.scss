@@ -1,0 +1,80 @@
+$image-size: 200px;
+$event-info-height: 400px;
+
+.event-info-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  height: $event-info-height;
+  justify-content: center;
+
+  position: relative;
+}
+
+.add-image-container {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.15);
+
+  & mat-icon {
+    scale: 5;
+  }
+}
+
+.event-image-container {
+  margin-top: 15px;
+  cursor: pointer;
+
+  overflow: hidden;
+  position: relative;
+
+  height: $image-size;
+  width: calc(2 * $image-size);
+}
+
+.image-preview {
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.event-form {
+  height: calc(100% - $event-info-height - 15px);
+}
+
+.event-form-card {
+  height: 100%;
+  overflow: hidden;
+}
+
+.event-form-card-content {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-fields-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.form-field-container {
+  flex: 1;
+}
+
+.submit-button-container {
+  width: 200px;
+}

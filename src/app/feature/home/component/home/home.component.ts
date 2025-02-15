@@ -53,6 +53,28 @@ export class HomeComponent implements OnInit {
     this.sortByPriceOrderFormControl = new FormControl(true, {nonNullable: true});
     this.sortByPriceOrderFormControl.disable();
 
+    this.sortByDateFormControl.valueChanges.subscribe((sortByDate: boolean) => {
+      if (sortByDate) {
+        this.sortByDateOrderFormControl.enable({emitEvent: false});
+        this.sortByPriceOrderFormControl.disable({emitEvent: false});
+        this.sortByPriceFormControl.disable({emitEvent: false});
+      } else {
+        this.sortByDateOrderFormControl.disable({emitEvent: false});
+        this.sortByPriceFormControl.enable({emitEvent: false});
+      }
+    });
+
+    this.sortByPriceFormControl.valueChanges.subscribe((sortByPrice: boolean) => {
+      if (sortByPrice) {
+        this.sortByPriceOrderFormControl.enable({emitEvent: false});
+        this.sortByDateOrderFormControl.disable({emitEvent: false});
+        this.sortByDateFormControl.disable({emitEvent: false});
+      } else {
+        this.sortByPriceOrderFormControl.disable({emitEvent: false});
+        this.sortByDateFormControl.enable({emitEvent: false});
+      }
+    });
+
     this.filterFormGroup = new FormGroup({
       name: this.eventNameFormControl,
       minimumPrice: this.minimumPriceFormControl,

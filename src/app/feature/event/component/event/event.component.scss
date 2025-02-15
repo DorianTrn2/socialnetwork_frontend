@@ -22,6 +22,19 @@ $event-info-height: 300px;
   align-items: center;
   height: $event-info-height;
   justify-content: center;
+
+  position: relative;
+}
+
+.edit-event-button {
+  position: absolute;
+  right: 10%;
+  width: 150px;
+  height: 150px;
+
+  mat-icon {
+    scale: 3;
+  }
 }
 
 .main-event-content {

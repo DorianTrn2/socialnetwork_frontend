@@ -23,7 +23,6 @@ export class EventCardComponent implements OnInit {
   }
 
   public onEventClick(): void {
-    console.log(this.event._id)
     this.navigationService.navigateTo(APP_URL.EVENT + '/' + this.event._id);
   }
 }

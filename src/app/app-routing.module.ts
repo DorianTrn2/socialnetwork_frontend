@@ -12,6 +12,8 @@ import {EventComponent} from "@feature/event/component/event/event.component";
 import {eventResolver} from "@shared/event/resolver/event.resolver";
 import {authResolver} from "@core/resolver/auth.resolver";
 import {userWhoLikesEventResolver} from "@shared/event/resolver/user-who-likes-event.resolver";
+import {EventFormComponent} from "@feature/event/component/event-form/event-form.component";
+import {OwnerOrAdminGuard} from "@feature/event/guard/owner-or-admin.guard";
 
 const routes: Routes = [
   {
@@ -51,29 +53,30 @@ const routes: Routes = [
       },
       {
         path: EVENTS_URL.NEW,
-        component: EventComponent,
+        component: EventFormComponent,
       },
       {
         path: ':event_id',
-        component: EventComponent,
         resolve: {
           event: eventResolver,
           userWhoLikesEvent: userWhoLikesEventResolver,
         },
-        // children: [
-        //   {
-        //     path: '',
-        //     component: EventComponent
-        //   },
-        //   {
-        //     path: EVENTS_URL.UPDATE,
-        //     component: EventComponent
-        //   },
-        //   {
-        //     path: '**',
-        //     redirectTo: APP_URL.HOME
-        //   },
-        // ]
+        runGuardsAndResolvers: 'always',
+        children: [
+          {
+            path: '',
+            component: EventComponent,
+          },
+          {
+            path: EVENTS_URL.UPDATE,
+            component: EventFormComponent,
+            canActivate: [OwnerOrAdminGuard],
+          },
+          {
+            path: '**',
+            redirectTo: APP_URL.HOME
+          },
+        ]
       },
       {
         path: '**',
