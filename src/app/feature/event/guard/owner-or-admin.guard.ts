@@ -5,47 +5,64 @@ import {UserProfile} from "@core/type/user.type";
 import {Event} from "@core/type/event.type";
 import {USER_ROLE_ID} from "@core/constant/user-role.constant";
 import {ProfileService} from "@core/service/profile/profile.service";
-import {catchError, of} from "rxjs";
+import {catchError, map, Observable, of, switchMap} from "rxjs";
 import {APP_URL} from "@core/constant/url.constant";
+import {EventService} from "@shared/event/service/event.service";
 
-export const OwnerOrAdminGuard: CanActivateFn = (route: ActivatedRouteSnapshot): boolean => {
+export const OwnerOrAdminGuard: CanActivateFn = (route: ActivatedRouteSnapshot): Observable<boolean> => {
   const authenticationStore: AuthenticationStore = inject(AuthenticationStore);
   const router: Router = inject(Router);
+  const eventService: EventService = inject(EventService);
+  const profileService: ProfileService = inject(ProfileService);
 
   // Resolver
-  const event: Event = route.data["event"];
-
+  const event: Event | undefined = route.data["event"];
   const connectedUser: UserProfile | null = authenticationStore.connectedUser$();
 
-  if (!connectedUser) {
-    const profileService: ProfileService = inject(ProfileService);
+  // 1. Si l'utilisateur est déjà connecté, vérifie son rôle
+  if (connectedUser) {
+    return checkAuthorization(connectedUser, event, eventService, route);
+  }
 
-    profileService.getMyProfile().pipe(
-      catchError(() => {
-        router.navigateByUrl(APP_URL.LOGIN).then();
-        return of(null)
-      })
-    ).subscribe((profile: UserProfile | null) => {
+  // 2. Sinon, récupère le profil utilisateur depuis le backend
+  return profileService.getMyProfile().pipe(
+    switchMap((profile: UserProfile | null) => {
       if (profile) {
         authenticationStore.login(profile);
-        if (profile.user.role_id === USER_ROLE_ID.ADMIN || profile.user.email === event.created_by_email) {
-          return true;
-        }
+        return checkAuthorization(profile, event, eventService, route);
+      } else {
+        router.navigateByUrl(APP_URL.LOGIN);
+        return of(false);
       }
-      router.navigateByUrl(APP_URL.HOME).then();
-      return false;
-    });
-
-    router.navigateByUrl(APP_URL.HOME).then();
-    return false;
-  }
-
-  // Return true only if user is owner or admin
-  if (connectedUser.user.role_id === USER_ROLE_ID.ADMIN || connectedUser.user.email === event.created_by_email) {
-    return true;
-  }
-
-  router.navigateByUrl(APP_URL.HOME).then();
-  return false;
-
+    }),
+    catchError(() => {
+      router.navigateByUrl(APP_URL.LOGIN);
+      return of(false);
+    })
+  );
 };
+
+function checkAuthorization(
+  user: UserProfile,
+  event: Event | undefined,
+  eventService: EventService,
+  route: ActivatedRouteSnapshot
+): Observable<boolean> {
+  // Si l'utilisateur est admin, il a accès
+  if (user.user.role_id === USER_ROLE_ID.ADMIN) {
+    return of(true);
+  }
+
+  // Si l'événement est déjà résolu, on vérifie le propriétaire
+  if (event) {
+    return of(event.created_by_email === user.user.email);
+  }
+
+  // Sinon, on récupère l'événement via l'API
+  return eventService.getEventById(route.paramMap.get('event_id') as string).pipe(
+    map((event: Event | null) => {
+      return event ? event.created_by_email === user.user.email : false;
+    }),
+    catchError(() => of(false))
+  );
+}
