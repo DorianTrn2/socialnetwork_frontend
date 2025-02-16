@@ -1,0 +1,23 @@
+<div class="modal-container">
+    <div class="modal-header">
+      <h3>Discussion entre {{ user1?.firstname }} et {{ user2?.firstname }}</h3>
+    </div>
+  
+    <div class="messages-list">
+      <div class="message" *ngFor="let message of messages">
+        <div class="message-sender">
+          <strong>{{ message.sender_email === user1.email ? user1.firstname : user2.firstname }}</strong>:
+        </div>
+        <div class="message-content">{{ message.message }}</div>
+        <div class="message-date">{{ message.date | date:'short' }}</div>
+      </div>
+    </div>
+    <div class="message-form">
+        <h3>Envoyer un message dans le chat</h3>
+        <form (submit)="sendMessage()">
+          <textarea [(ngModel)]="newMessage" [ngModelOptions]="{standalone: true}" placeholder="Ecrivez votre message ici" rows="3"></textarea>
+          <button type="submit">Send</button>
+        </form>
+    </div>
+</div>
+  

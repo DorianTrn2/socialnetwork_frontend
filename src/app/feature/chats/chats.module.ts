@@ -1,15 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChatsComponent } from './component/chats/chats.component';
-
-
+import { ChatsListComponent } from './component/chats-list/chats-list.component';
+import { ChatsMessageComponent } from './component/chats-message/chats-message.component'
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    ChatsComponent
+    ChatsListComponent,
+    ChatsMessageComponent
   ],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+    MatDialogModule,
+    FormsModule
+    
+  ],
+  exports: [  ]
 })
 export class ChatsModule { }
