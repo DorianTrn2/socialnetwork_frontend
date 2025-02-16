@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, computed, inject, OnInit, Signal} from '@angular/core';
 import {User} from "@core/type/user.type";
 import {AuthenticationStore} from "@core/store/authentication/authentication.store";
 import {NavigationService} from "@core/service/navigation/navigation.service";
@@ -19,36 +19,22 @@ export class HomeComponent implements OnInit {
   public events!: Event[];
 
   public filterFormGroup!: FormGroup;
-
-  protected readonly connectedUser: User | null = inject(AuthenticationStore).connectedUser$()?.user ?? null;
-
   protected readonly APP_URL = APP_URL;
-
   protected readonly LOGIN_FRAGMENT = LOGIN_FRAGMENT;
-
   protected readonly navigationService: NavigationService = inject(NavigationService);
-
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
-
   private eventNameFormControl!: FormControl<string | null>;
-
   private minimumPriceFormControl!: FormControl<number>;
-
   private maximumPriceFormControl!: FormControl<number>;
-
   private themeFormControl!: FormControl<EventTheme | null>;
-
   private dateFormControl!: FormControl<Date | null>;
-
   private sortByDateFormControl!: FormControl<boolean>;
-
   private sortByDateOrderFormControl!: FormControl<boolean>;
-
   private sortByPriceFormControl!: FormControl<boolean>;
-
   private sortByPriceOrderFormControl!: FormControl<boolean>;
-
   private readonly eventService: EventService = inject(EventService);
+  private readonly authStore: AuthenticationStore = inject(AuthenticationStore);
+  protected readonly connectedUser$: Signal<User | null> = computed(() => this.authStore.connectedUser$()?.user ?? null)
 
   public ngOnInit(): void {
     // Resolver
@@ -66,6 +52,28 @@ export class HomeComponent implements OnInit {
     this.sortByDateOrderFormControl.disable();
     this.sortByPriceOrderFormControl = new FormControl(true, {nonNullable: true});
     this.sortByPriceOrderFormControl.disable();
+
+    this.sortByDateFormControl.valueChanges.subscribe((sortByDate: boolean) => {
+      if (sortByDate) {
+        this.sortByDateOrderFormControl.enable({emitEvent: false});
+        this.sortByPriceOrderFormControl.disable({emitEvent: false});
+        this.sortByPriceFormControl.disable({emitEvent: false});
+      } else {
+        this.sortByDateOrderFormControl.disable({emitEvent: false});
+        this.sortByPriceFormControl.enable({emitEvent: false});
+      }
+    });
+
+    this.sortByPriceFormControl.valueChanges.subscribe((sortByPrice: boolean) => {
+      if (sortByPrice) {
+        this.sortByPriceOrderFormControl.enable({emitEvent: false});
+        this.sortByDateOrderFormControl.disable({emitEvent: false});
+        this.sortByDateFormControl.disable({emitEvent: false});
+      } else {
+        this.sortByPriceOrderFormControl.disable({emitEvent: false});
+        this.sortByDateFormControl.enable({emitEvent: false});
+      }
+    });
 
     this.filterFormGroup = new FormGroup({
       name: this.eventNameFormControl,

@@ -50,7 +50,12 @@ export const APP_URL = {
 
 export const EVENTS_URL = {
   NEW: "new",
+  UPDATE: "update",
 };
+
+export const EVENTS_FRAGMENT = {
+  RELOAD: "reload",
+}
 
 export const LOGIN_FRAGMENT = {
   REGISTER: "register",

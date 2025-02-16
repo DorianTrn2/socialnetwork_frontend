@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {APP_URL, LOGIN_FRAGMENT} from "../../../../core/constant/url.constant";
 import {LoginForm} from '../../model/loginForm';
@@ -10,7 +10,7 @@ import {LoginService} from '../../login.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginData: LoginForm;
   registerData: RegisterForm;
   hide: boolean;

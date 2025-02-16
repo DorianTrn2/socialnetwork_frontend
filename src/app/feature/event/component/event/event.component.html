@@ -1,1 +1,42 @@
-<p>event works!</p>
+<div class="event-info-container">
+  <div class="event-image-container">
+    <img [src]="eventImageUrl">
+  </div>
+  <h1>{{ event.name }}</h1>
+  <button (click)="onEditEventClick()" *ngIf="userCanEditEvent" class="edit-event-button" mat-icon-button>
+    <mat-icon>edit</mat-icon>
+  </button>
+</div>
+<div class="main-event-content">
+  <mat-card class="event-card">
+    <mat-card-header>
+      <h2>Évènement : {{ event.name }}</h2>
+    </mat-card-header>
+    <mat-card-content class="event-card-content">
+      <div class="event-info">
+        <h4>Créateur de l'évènement</h4>
+        <span>{{ event.created_by_email }}</span>
+      </div>
+      <div class="event-info">
+        <h4>Prix</h4>
+        <span>{{ event.price }}€</span>
+      </div>
+      <div class="event-info">
+        <h4>Date</h4>
+        <span>{{ event.date | date }}</span>
+      </div>
+      <mat-checkbox [formControl]="likeEventFormControl" class="like-event-container">
+        <span *ngIf="eventLiked$$()">💖</span>
+        <span *ngIf="!eventLiked$$()">Liker l'évènement</span>
+      </mat-checkbox>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="users-card">
+    <mat-card-header>
+      <h2>Utilisateurs aimant cet évènement</h2>
+    </mat-card-header>
+    <mat-card-content class="users-card-content">
+      <app-user-small-card *ngFor="let user of userWhoLikesEvent$$()" [user]="user"></app-user-small-card>
+    </mat-card-content>
+  </mat-card>
+</div>
