@@ -1,4 +1,4 @@
-<mat-card (click)="onEventClick()" class="event-card">
+<mat-card (click)="onEventClick()" class="event-card clickable-mat-card">
   <mat-card-header>
     <h3>{{ event.name }}</h3>
   </mat-card-header>
@@ -19,7 +19,7 @@
       </div>
       <div class="event-info-container">
         <h4>Date</h4>
-        <span>{{ event.date | date }}</span>
+        <span>{{ event.date | date:'longDate' }}</span>
       </div>
     </div>
   </mat-card-content>

@@ -1,71 +1,85 @@
-<div class="login-form-container form-container" *ngIf="!isRegister">
+<div *ngIf="!isRegister" class="login-form-container form-container">
   <h2>Connexion</h2>
-  <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
     <mat-form-field appearance="fill">
       <mat-label>Pseudo</mat-label>
-      <input matInput type="text" name="login" [(ngModel)]="loginData.login" required>
+      <input [(ngModel)]="loginData.login" matInput name="login" required type="text">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Mot de passe</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" name="password" [(ngModel)]="loginData.password" required>
-      <button mat-icon-button matSuffix (click)="hide = !hide">
-        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <input [(ngModel)]="loginData.password" [type]="hide ? 'password' : 'text'" matInput name="password" required>
+      <button (click)="hide = !hide" mat-icon-button matSuffix>
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
       </button>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+    <mat-error *ngIf="displayInvalidCredentials$$()">Nom d'utilisateur ou mot de passe incorrect</mat-error>
+    <br>
+
+    <button [disabled]="loginForm.invalid" color="primary" mat-raised-button type="submit">Se connecter</button>
   </form>
   <div class="register-link navigate-link">
     <a (click)="navigateToRegister()">Pas de compte ? Créer un compte</a>
   </div>
 </div>
 
-<div class="register-form-container form-container" *ngIf="isRegister">
+<div *ngIf="isRegister" class="register-form-container form-container">
   <h2>Inscription</h2>
-  <form (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm">
+  <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
-      <input matInput type="email" name="email" [(ngModel)]="registerData.email" 
-      required pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$">
+      <input [(ngModel)]="registerData.email" matInput name="email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+             required type="email">
       <mat-error *ngIf="registerForm.controls['email']?.invalid">L'email doit être valide</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Pseudo</mat-label>
-      <input matInput type="text" name="login" [(ngModel)]="registerData.login" 
-      required pattern="[a-zA-Z0-9]{3,20}">
-      <mat-error *ngIf="registerForm.controls['login']?.invalid">Le pseudo doit contenir entre 3 et 20 caractères alphanumériques</mat-error>
+      <input [(ngModel)]="registerData.login" matInput name="login" pattern="[a-zA-Z0-9]{3,20}"
+             required type="text">
+      <mat-error *ngIf="registerForm.controls['login']?.invalid">Le pseudo doit contenir entre 3 et 20 caractères
+        alphanumériques
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Mot de passe</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" name="password" [(ngModel)]="registerData.password" required>
-      <button mat-icon-button matSuffix (click)="hide = !hide">
-        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <input [(ngModel)]="registerData.password" [type]="hide ? 'password' : 'text'" matInput name="password" required>
+      <button (click)="hide = !hide" mat-icon-button matSuffix>
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
       </button>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Prénom</mat-label>
-      <input matInput type="text" name="firstname" [(ngModel)]="registerData.firstname"
-       required pattern="[a-zA-Z]{2,20}">
-       <mat-error *ngIf="registerForm.controls['firstname']?.invalid">Le prénom doit contenir entre 2 et 20 caractères alphabétiques</mat-error>
-      </mat-form-field>
+      <input [(ngModel)]="registerData.firstname" matInput name="firstname" pattern="[a-zA-Z]{2,20}"
+             required type="text">
+      <mat-error *ngIf="registerForm.controls['firstname']?.invalid">Le prénom doit contenir entre 2 et 20 caractères
+        alphabétiques
+      </mat-error>
+    </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Nom</mat-label>
-      <input matInput type="text" name="lastname" [(ngModel)]="registerData.lastname"
-       required pattern="[a-zA-Z]{2,20}">
-        <mat-error *ngIf="registerForm.controls['lastname']?.invalid">Le nom doit contenir entre 2 et 20 caractères alphabétiques</mat-error>
-      </mat-form-field>
+      <input [(ngModel)]="registerData.lastname" matInput name="lastname" pattern="[a-zA-Z]{2,20}"
+             required type="text">
+      <mat-error *ngIf="registerForm.controls['lastname']?.invalid">Le nom doit contenir entre 2 et 20 caractères
+        alphabétiques
+      </mat-error>
+    </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Date de naissance</mat-label>
-      <input matInput type="date" name="birthday" [(ngModel)]="registerData.birthday" required>
+      <input [(ngModel)]="registerData.birthday" matInput name="birthday" required type="date">
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
+    <mat-error *ngIf="displayInvalidEmailFormat$$()">Format de l'email invalide</mat-error>
+    <mat-error *ngIf="displayAlreadyUsedMailOrUsername$$()">Nom d'utilisateur ou email déjà utilisé</mat-error>
+    <mat-error *ngIf="displayInvalidBirthday$$()">Date de naissance invalide (dans le futur)</mat-error>
+    <br>
+
+    <button [disabled]="registerForm.invalid" color="primary" mat-raised-button type="submit">S'inscrire</button>
   </form>
   <div class="login-link navigate-link">
     <a (click)="navigateToLogin()">Déjà un compte ? Se connecter</a>

@@ -23,7 +23,7 @@
       </div>
       <div class="event-info">
         <h4>Date</h4>
-        <span>{{ event.date | date }}</span>
+        <span>{{ event.date | date:'longDate' }}</span>
       </div>
       <mat-checkbox [formControl]="likeEventFormControl" class="like-event-container">
         <span *ngIf="eventLiked$$()">💖</span>
