@@ -36,7 +36,14 @@
       <h2>Utilisateurs aimant cet évènement</h2>
     </mat-card-header>
     <mat-card-content class="users-card-content">
-      <app-user-small-card *ngFor="let user of userWhoLikesEvent$$()" [user]="user"></app-user-small-card>
+      <div *ngFor="let user of userWhoLikesEvent$$()">
+        <app-user-small-card [matMenuTriggerFor]="menu" [user]="user"></app-user-small-card>
+        <mat-menu #menu="matMenu">
+          <button (click)="onStartConversationClick(user)" mat-menu-item>Démarrer une conversation
+            avec {{ user.username }}
+          </button>
+        </mat-menu>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>

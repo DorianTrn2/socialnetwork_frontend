@@ -15,6 +15,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
+import {MatMenuModule} from "@angular/material/menu";
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {MatSelectModule} from "@angular/material/select";
     MatInputModule,
     MatDatepickerModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatMenuModule
   ]
 })
 export class EventModule {
