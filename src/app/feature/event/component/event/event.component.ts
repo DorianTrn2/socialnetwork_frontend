@@ -2,12 +2,13 @@ import {Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Event} from "@core/type/event.type";
 import {FormControl} from "@angular/forms";
-import {BACKEND_ENDPOINT, BACKEND_EVENT_ENDPOINT, BACKEND_URI, EVENT_URL} from "@core/constant/url.constant";
+import {APP_URL, BACKEND_ENDPOINT, BACKEND_EVENT_ENDPOINT, BACKEND_URI, EVENT_URL} from "@core/constant/url.constant";
 import {User} from "@core/type/user.type";
 import {AuthenticationStore} from "@core/store/authentication/authentication.store";
 import {EventService} from "@shared/event/service/event.service";
 import {NavigationService} from "@core/service/navigation/navigation.service";
 import {USER_ROLE_ID} from "@core/constant/user-role.constant";
+import {ChatService} from "@shared/chat/service/chats.service";
 
 @Component({
   selector: 'app-event',
@@ -35,6 +36,8 @@ export class EventComponent implements OnInit {
 
   private readonly navigationService: NavigationService = inject(NavigationService);
 
+  private readonly chatService: ChatService = inject(ChatService);
+
   public ngOnInit(): void {
     // Resolver
     this.event = this.route.snapshot.data["event"];
@@ -60,5 +63,11 @@ export class EventComponent implements OnInit {
 
   public onEditEventClick(): void {
     this.navigationService.navigateRelative([EVENT_URL.UPDATE], this.route).then();
+  }
+
+  public onStartConversationClick(user: User): void {
+    this.chatService.startChatWithUser(user.email).subscribe(() => {
+      this.navigationService.navigateTo(APP_URL.CHATS);
+    });
   }
 }
