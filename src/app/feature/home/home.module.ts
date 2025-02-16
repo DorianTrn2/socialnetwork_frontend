@@ -4,7 +4,6 @@ import {HomeComponent} from './component/home/home.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {EventService} from "@shared/event/service/event.service";
-import {EventsStore} from "@shared/event/store/events.store";
 import {EventCardModule} from "@shared/event-card/event-card.module";
 import {EventFilterComponent} from './component/event-filter/event-filter.component';
 import {ReactiveFormsModule} from "@angular/forms";
@@ -41,7 +40,6 @@ import {MatNativeDateModule} from "@angular/material/core";
   ],
   providers: [
     EventService,
-    EventsStore,
   ]
 })
 export class HomeModule {

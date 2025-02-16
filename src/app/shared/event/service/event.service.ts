@@ -1,8 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable, of, tap} from "rxjs";
+import {Observable} from "rxjs";
 import {BACKEND_ENDPOINT, BACKEND_EVENT_ENDPOINT, BACKEND_URI} from "@core/constant/url.constant";
-import {EventsStore} from "@shared/event/store/events.store";
 import {Event} from "@core/type/event.type";
 import {EventTheme} from "@core/constant/theme.constant";
 import {User} from "@core/type/user.type";
@@ -13,19 +12,8 @@ export class EventService {
 
   private readonly http: HttpClient = inject(HttpClient);
 
-  private readonly eventsStore: EventsStore = inject(EventsStore);
-
   public getEvents(): Observable<Event[]> {
-    const storedEvents: Event[] | null = this.eventsStore.events$();
-    if (storedEvents !== null) {
-      return of(storedEvents);
-    }
-
-    return this.http.get<Event[]>(this.baseUrl).pipe(
-      tap((events: Event[]) => {
-        this.eventsStore.setEvents(events);
-      })
-    );
+    return this.http.get<Event[]>(this.baseUrl);
   }
 
   public getEventById(eventId: string): Observable<Event | null> {
