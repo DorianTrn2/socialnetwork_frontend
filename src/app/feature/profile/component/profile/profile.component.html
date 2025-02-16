@@ -35,7 +35,7 @@
       </div>
       <div class="profile-info">
         <h4>Date de naissance</h4>
-        <span>{{ userProfile.user.birthday | date }}</span>
+        <span>{{ userProfile.user.birthday | date:'longDate' }}</span>
       </div>
       <mat-radio-group class="select-displayed-events" formControlName="displayCreatedEvents">
         <mat-label class="display-events-label"><h4>Afficher les évènements</h4></mat-label>

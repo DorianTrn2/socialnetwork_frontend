@@ -9,6 +9,7 @@ import {EventService} from "@shared/event/service/event.service";
 import {NavigationService} from "@core/service/navigation/navigation.service";
 import {USER_ROLE_ID} from "@core/constant/user-role.constant";
 import {ChatService} from "@shared/chat/service/chats.service";
+import {catchError, of} from "rxjs";
 
 @Component({
   selector: 'app-event',
@@ -66,7 +67,12 @@ export class EventComponent implements OnInit {
   }
 
   public onStartConversationClick(user: User): void {
-    this.chatService.startChatWithUser(user.email).subscribe(() => {
+    this.chatService.startChatWithUser(user.email).pipe(
+      catchError(() => {
+        this.navigationService.navigateTo(APP_URL.CHATS);
+        return of(null);
+      })
+    ).subscribe(() => {
       this.navigationService.navigateTo(APP_URL.CHATS);
     });
   }
