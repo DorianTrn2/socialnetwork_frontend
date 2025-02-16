@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {Router} from '@angular/router';
 import {APP_URL, LOGIN_FRAGMENT} from "../../../../core/constant/url.constant";
 import {LoginForm} from '../../model/loginForm';
@@ -15,6 +15,14 @@ export class LoginComponent implements OnInit {
   registerData: RegisterForm;
   hide: boolean;
   isRegister: boolean;
+
+  public displayInvalidCredentials$$: WritableSignal<boolean> = signal(false);
+
+  public displayInvalidEmailFormat$$: WritableSignal<boolean> = signal(false);
+
+  public displayAlreadyUsedMailOrUsername$$: WritableSignal<boolean> = signal(false);
+
+  public displayInvalidBirthday$$: WritableSignal<boolean> = signal(false);
 
   protected readonly APP_URL = APP_URL;
   private readonly router: Router = inject(Router);
@@ -70,6 +78,8 @@ export class LoginComponent implements OnInit {
           } else {
             console.error('Login failed:', error);
           }
+
+          this.displayInvalidCredentials$$.set(true);
         }
       });
     this.loginData = new LoginForm('', '');
@@ -102,7 +112,25 @@ export class LoginComponent implements OnInit {
           this.navigateToLogin();
         },
         error: (error: any) => {
-          console.error('Register failed:', error);
+          console.error('Register failed:', error.error.error);
+          const errorMsg: string = error.error.error;
+          if (errorMsg === 'Invalid email format') {
+            this.displayInvalidEmailFormat$$.set(true);
+          } else {
+            this.displayInvalidEmailFormat$$.set(false);
+          }
+
+          if (errorMsg === 'Email or username is already used') {
+            this.displayAlreadyUsedMailOrUsername$$.set(true);
+          } else {
+            this.displayAlreadyUsedMailOrUsername$$.set(false);
+          }
+
+          if (errorMsg === 'Invalid birthday (date in the future)') {
+            this.displayInvalidBirthday$$.set(true);
+          } else {
+            this.displayInvalidBirthday$$.set(false);
+          }
         }
       });
 

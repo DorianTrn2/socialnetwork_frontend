@@ -67,6 +67,9 @@ export class EventComponent implements OnInit {
   }
 
   public onStartConversationClick(user: User): void {
+    if (user.email === this.authenticationStore.connectedUser$()?.user?.email) {
+      return;
+    }
     this.chatService.startChatWithUser(user.email).pipe(
       catchError(() => {
         this.navigationService.navigateTo(APP_URL.CHATS);
