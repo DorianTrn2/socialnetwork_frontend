@@ -1,27 +1,48 @@
-# SocialnetworkFrontend
+# Social Network Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.1.
+## Project Initialization
 
-## Development server
+In the project folder, run:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```shell
+npm install
+```
 
-## Code scaffolding
+## Start the Backend
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The backend for this application is available at [socialnetwork_backend](https://github.com/DorianTrn2/socialnetwork_backend). To start the backend, clone the Git repository:
 
-## Build
+```shell
+git clone https://github.com/DorianTrn2/socialnetwork_backend.git
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Using Docker
 
-## Running unit tests
+If you have Docker installed, run the following command in the root of the project folder:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```shell
+docker compose up
+```
 
-## Running end-to-end tests
+### Without Docker
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Refer to the [manual setup documentation](https://github.com/DorianTrn2/socialnetwork_backend?tab=readme-ov-file#manual-setup) for detailed instructions.
 
-## Further help
+### Backend URL
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+With or without Docker, the backend will, by default, start on `http://localhost:3001`. If you change this, you must also update the `BACKEND_URI` variable in the frontend to match your chosen URL. This variable is located in:
+
+```
+src/app/core/constant/url.constant.ts
+```
+
+## Running the Application
+
+To start the development server, run:
+
+```shell
+ng serve
+```
+
+The frontend will be available at `http://localhost:4200`. The backend's CORS policy enforces requests from this specific address, so changing it may cause issues.
+
