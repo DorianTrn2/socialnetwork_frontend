@@ -14,6 +14,17 @@ $user-info-height: 250px;
   }
 }
 
+.edit-profile-button {
+  position: absolute;
+  right: 10%;
+  width: 150px;
+  height: 150px;
+
+  mat-icon {
+    scale: 3;
+  }
+}
+
 .user-info-container {
   display: flex;
   flex-direction: column;
@@ -21,6 +32,8 @@ $user-info-height: 250px;
   align-items: center;
   height: $user-info-height;
   justify-content: center;
+
+  position: relative;
 }
 
 .main-profile-content {

@@ -1,5 +1,5 @@
 import {Component, inject, Signal} from '@angular/core';
-import {APP_URL, EVENTS_URL, LOGIN_FRAGMENT} from "@core/constant/url.constant";
+import {APP_URL, EVENT_URL, LOGIN_FRAGMENT} from "@core/constant/url.constant";
 import {AuthenticationStore} from "@core/store/authentication/authentication.store";
 import {UserProfile} from "@core/type/user.type";
 import {NavigationService} from "@core/service/navigation/navigation.service";
@@ -14,7 +14,7 @@ export class NavbarComponent {
 
   protected readonly APP_URL = APP_URL;
 
-  protected readonly EVENTS_URL = EVENTS_URL;
+  protected readonly EVENTS_URL = EVENT_URL;
 
   protected readonly LOGIN_FRAGMENT = LOGIN_FRAGMENT;
 

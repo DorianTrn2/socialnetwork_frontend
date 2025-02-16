@@ -1,0 +1,61 @@
+<div class="user-info-container">
+  <h1>Modification de mon profile</h1>
+  <div (click)="onUserImageClick()"
+       class="user-image-container">
+    <img
+      [src]="selectedImage"
+      alt="User image"
+      class="image-preview"
+    />
+    <input
+      (change)="onFileSelected($event)"
+      [hidden]="true"
+      accept="image/png, image/jpeg, image/jpg"
+      type="file"
+    />
+  </div>
+  <h2>{{ userProfile.user.username }}</h2>
+</div>
+
+<form (ngSubmit)="onSubmit()" [formGroup]="userFormGroup" class="user-form">
+  <mat-card class="user-form-card">
+    <mat-card-header>
+      <h2>Modification de vos informations personnelles</h2>
+    </mat-card-header>
+    <mat-card-content class="user-form-card-content">
+      <div class="form-fields-container">
+        <div class="form-field-container">
+          <h3>Nom</h3>
+          <mat-form-field class="width-full">
+            <mat-label>Nom</mat-label>
+            <input formControlName="lastname" matInput pattern="[a-zA-Z]{2,20}" type="text">
+            <mat-error>Obligatoire, le nom doit contenir entre 2 et 20 caractères alphabétiques</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-field-container">
+          <h3>Prénom</h3>
+          <mat-form-field class="width-full">
+            <mat-label>Prénom</mat-label>
+            <input formControlName="firstname" matInput pattern="[a-zA-Z]{2,20}" type="text">
+            <mat-error>Obligatoire, le prénom doit contenir entre 2 et 20 caractères alphabétiques</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-field-container">
+          <h3>Date de naissance</h3>
+          <mat-form-field class="width-full">
+            <mat-label>Date de naissance</mat-label>
+            <input [matDatepicker]="picker" formControlName="birthday" matInput>
+            <mat-datepicker-toggle [for]="picker" matIconSuffix></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error>Obligatoire</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="submit-button-container">
+        <button [disabled]="userFormGroup.pristine || !userFormGroup.valid" class="width-full" color="primary"
+                mat-flat-button type="submit">Enregistrer
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>

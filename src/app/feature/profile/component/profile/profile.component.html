@@ -1,8 +1,11 @@
 <div class="user-info-container">
   <div class="user-image-container">
-    <img [src]="userImageUrl">
+    <img [src]="userImageUrl" alt="User image">
   </div>
   <h1>{{ userProfile.user.username }}</h1>
+  <button (click)="onEditProfileClick()" class="edit-profile-button" mat-icon-button>
+    <mat-icon>edit</mat-icon>
+  </button>
 </div>
 <form [formGroup]="displayCreatedEventsFormGroup" class="main-profile-content">
   <mat-card class="profile-card">

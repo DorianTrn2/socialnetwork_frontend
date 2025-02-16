@@ -48,14 +48,14 @@ export const APP_URL = {
   CHATS: "chats",
 };
 
-export const EVENTS_URL = {
+export const EVENT_URL = {
   NEW: "new",
   UPDATE: "update",
 };
 
-export const EVENTS_FRAGMENT = {
-  RELOAD: "reload",
-}
+export const USER_URL = {
+  UPDATE: "update",
+};
 
 export const LOGIN_FRAGMENT = {
   REGISTER: "register",
