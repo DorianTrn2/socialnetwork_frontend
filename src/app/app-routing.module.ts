@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {HomeComponent} from "@feature/home/component/home/home.component";
 import {APP_URL, EVENT_URL, USER_URL} from "@core/constant/url.constant";
-import {ChatsComponent} from "@feature/chats/component/chats/chats.component";
 import {ProfileComponent} from "@feature/profile/component/profile/profile.component";
 import {LoginComponent} from "@feature/login/component/login/login.component";
 import {eventsResolver} from "@shared/event/resolver/events.resolver";
@@ -14,6 +13,7 @@ import {authResolver} from "@core/resolver/auth.resolver";
 import {userWhoLikesEventResolver} from "@shared/event/resolver/user-who-likes-event.resolver";
 import {EventFormComponent} from "@feature/event/component/event-form/event-form.component";
 import {OwnerOrAdminGuard} from "@feature/event/guard/owner-or-admin.guard";
+import {ChatsListComponent} from "@feature/chats/component/chats-list/chats-list.component";
 import {ProfileEditComponent} from "@feature/profile/component/profile-edit/profile-edit.component";
 
 const routes: Routes = [
@@ -32,7 +32,7 @@ const routes: Routes = [
   },
   {
     path: APP_URL.CHATS,
-    component: ChatsComponent,
+    component: ChatsListComponent,
     canActivate: [AuthGuard],
   },
   {
