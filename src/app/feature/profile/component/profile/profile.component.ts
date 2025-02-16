@@ -1,9 +1,10 @@
 import {Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {UserProfile} from "@core/type/user.type";
-import {BACKEND_ENDPOINT, BACKEND_URI, BACKEND_USER_ENDPOINT} from "@core/constant/url.constant";
+import {BACKEND_ENDPOINT, BACKEND_URI, BACKEND_USER_ENDPOINT, USER_URL} from "@core/constant/url.constant";
 import {ActivatedRoute} from "@angular/router";
 import {USER_ROLE_NAME} from "@core/constant/user-role.constant";
 import {FormControl, FormGroup} from "@angular/forms";
+import {NavigationService} from "@core/service/navigation/navigation.service";
 
 @Component({
   selector: 'app-profile',
@@ -25,6 +26,8 @@ export class ProfileComponent implements OnInit {
 
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
 
+  private readonly navigationService: NavigationService = inject(NavigationService);
+
   public ngOnInit(): void {
     this.userProfile = this.route.snapshot.data["userProfile"];
     this.userImageUrl = `${BACKEND_URI}/${BACKEND_ENDPOINT.USER}/${this.userProfile.user.username}/${BACKEND_USER_ENDPOINT.GET_IMAGE}`;
@@ -37,5 +40,9 @@ export class ProfileComponent implements OnInit {
     this.displayCreatedEventsFormControl.valueChanges.subscribe((displayCreatedEvents: boolean) => {
       this.displayCreatedEvents$$.set(displayCreatedEvents);
     })
+  }
+
+  public onEditProfileClick(): void {
+    this.navigationService.navigateRelative([USER_URL.UPDATE], this.route).then();
   }
 }

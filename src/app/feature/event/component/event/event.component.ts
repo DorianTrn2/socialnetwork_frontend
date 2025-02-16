@@ -2,7 +2,7 @@ import {Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Event} from "@core/type/event.type";
 import {FormControl} from "@angular/forms";
-import {BACKEND_ENDPOINT, BACKEND_EVENT_ENDPOINT, BACKEND_URI, EVENTS_URL} from "@core/constant/url.constant";
+import {BACKEND_ENDPOINT, BACKEND_EVENT_ENDPOINT, BACKEND_URI, EVENT_URL} from "@core/constant/url.constant";
 import {User} from "@core/type/user.type";
 import {AuthenticationStore} from "@core/store/authentication/authentication.store";
 import {EventService} from "@shared/event/service/event.service";
@@ -59,6 +59,6 @@ export class EventComponent implements OnInit {
   }
 
   public onEditEventClick(): void {
-    this.navigationService.navigateRelative([EVENTS_URL.UPDATE], this.route).then();
+    this.navigationService.navigateRelative([EVENT_URL.UPDATE], this.route).then();
   }
 }
