@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {HomeComponent} from "@feature/home/component/home/home.component";
+import {ChatsListComponent} from "@feature/chats/component/chats-list/chats-list.component";
 import {APP_URL, EVENTS_URL} from "@core/constant/url.constant";
-import {ChatsComponent} from "@feature/chats/component/chats/chats.component";
 import {ProfileComponent} from "@feature/profile/component/profile/profile.component";
 import {LoginComponent} from "@feature/login/component/login/login.component";
 import {eventsResolver} from "@shared/event/resolver/events.resolver";
@@ -31,8 +31,7 @@ const routes: Routes = [
   },
   {
     path: APP_URL.CHATS,
-    component: ChatsComponent,
-    canActivate: [AuthGuard],
+    component: ChatsListComponent,
   },
   {
     path: APP_URL.PROFILE,
