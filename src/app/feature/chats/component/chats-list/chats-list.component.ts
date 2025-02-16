@@ -40,16 +40,6 @@ export class ChatsListComponent {
     })
   }
 
-  userImage(username: string){
-    this.chatService.getuserimageurl(username)
-    .subscribe({
-      next: (response: any)=>{
-        console.log(response);
-        return response;
-      }
-    })
-  }
-
   openChat(chatId: string) {
     this.dialog.open(ChatsMessageComponent, {
       width: '600px',
@@ -58,20 +48,9 @@ export class ChatsListComponent {
   }
   
   loadUserImage(username: string) {
-    console.log("loadUserImage");
-    if (!this.userImages[username]) {
-      this.chatService.getuserimageurl(username).subscribe({
-        next: (response: any) => {
-          this.userImages[username] = response;
-        },
-        error: (error: any) => {
-          console.error('Error fetching user image:', error);
-          this.userImages[username] = 'https://via.placeholder.com/50';
-        }
-      });
+    if (!this.userImages[username]){
+      this.userImages[username] = `${BACKEND_URI}/${BACKEND_ENDPOINT.USER}/${username}/${BACKEND_USER_ENDPOINT.GET_IMAGE}`;
     }
   }
-  
-
 
 }
