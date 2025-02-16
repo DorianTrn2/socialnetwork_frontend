@@ -47,3 +47,15 @@
   .user-names {
     font-size: 1rem
   }  
+
+  #no-chats{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    padding-top: 3rem;
+    margin: 1rem;
+    font-size:2rem;
+    color: gray;
+    font-style:italic;
+  }

@@ -1,7 +1,7 @@
 import {Component, inject, Input} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {Router} from '@angular/router';
-import {APP_URL} from "src/app/core/constant/url.constant";
+import {APP_URL,BACKEND_ENDPOINT, BACKEND_URI, BACKEND_USER_ENDPOINT, USER_URL} from "src/app/core/constant/url.constant";
 import {ChatService} from "../../chats.service"
 import { ChatsMessageComponent } from '../chats-message/chats-message.component';
 import { XhrFactory } from '@angular/common';
@@ -27,7 +27,6 @@ export class ChatsListComponent {
     this.chatService.getchats()
     .subscribe({
       next: (response: any[]) =>{
-        console.log('Chats: ', response);
         this.chats = response;
         response.forEach(chat=>{
           this.loadUserImage(chat.user1.username);

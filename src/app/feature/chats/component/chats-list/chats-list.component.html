@@ -1,4 +1,4 @@
-<div class="chat-list">
+<div class="chat-list" *ngIf="chats.length!=0">
     <div class="chat-card" *ngFor="let chat of chats" (click)="openChat(chat._id)">
       <div class="chat-images">
         <img 
@@ -18,5 +18,10 @@
         <p class="user-names">{{ chat.user1.firstname }} {{ chat.user1.lastname }} <br><hr> {{ chat.user2.firstname }} {{ chat.user2.lastname }}</p>
       </div>
     </div>
+  </div>
+  <div *ngIf="chats.length==0">
+    <p id="no-chats"> 
+      Vous n'avez pas de chats
+    </p>
   </div>
   
